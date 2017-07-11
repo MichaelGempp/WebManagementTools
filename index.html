@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="chartist.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.css">
+    <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div id="chartdiv"></div>
+
+
+<div id="tblPol">
+    <h2>Politische Einflussfaktoren</h2>
+        <form>
+            <table id="tblPolTre">
+                <tr id="headerRow">
+                    <th>Nr</th>
+                    <th>Einflussfaktoren</th>
+                    <th>Auswirkungen</th>
+                    <th>Stärke der Auswirkung</th>
+                    <th>Trend</th>
+                    <th>Mögliche Massnahmen</th>
+                    <th>Status</th>
+                </tr>
+            </table>
+            <br>
+        </form>
+
+
+
+    <p>Sum</p>
+    <form> <input type="number" name="quantity" min="1" max="100"> </input> </form>
+
+    <button id="btnAdd">Add</button>
+</div>
+
+
+<!--<i class="fa fa-arrow-circle-down" style="font-size:36px"></i>-->
+
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+<script type="text/javascript" src="jscript.js"></script>
+<script type="text/javascript" src="data.js"></script>
+
+
+<script src="amcharts/amcharts.js"></script>
+<script src="amcharts/radar.js"></script>
+<script src="amcharts/plugins/export/export.min.js"></script>
+<script src="amcharts/themes/light.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<!-- AmCharts includes -->
+		<script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script src="http://www.amcharts.com/lib/3/pie.js"></script>
+
+		<!-- Export plugin includes and styles -->
+		<script src="../export.js"></script>
+		<link  type="text/css" href="../export.css" rel="stylesheet">
+
+		<style>
+			body, html {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+				font-size: 11px;
+				font-family: Verdana;
+			}
+			#chartdiv, #chartdiv2 {
+				width: 50%;
+				height: 100%;
+				float: left;
+				position: relative;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var chart = AmCharts.makeChart( "chartdiv", {
+				"type": "pie",
+				"dataProvider": [ {
+					"category": "Czech Republic",
+					"points": 156.9
+				}, {
+					"category": "Ireland",
+					"points": 131.1
+				}, {
+					"category": "Germany",
+					"points": 115.8
+				}, {
+					"category": "Australia",
+					"points": 109.9
+				}, {
+					"category": "Austria",
+					"points": 108.3
+				}, {
+					"category": "UK",
+					"points": 65
+				}, {
+					"category": "Belgium",
+					"points": 50
+				} ],
+				"titleField": "country",
+				"valueField": "points",
+				"balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+				"innerRadius": "30%",
+				"labelsEnabled": false,
+				"export": {
+					"enabled": true,
+					"libs": {
+						"path": "../libs/"
+					}
+				}
+			} );
+
+			var chart2 = AmCharts.makeChart( "chartdiv2", {
+				"type": "pie",
+				"pathToImages": "http://www.amcharts.com/lib/3/images/",
+				"dataProvider": [ {
+					"category": "Czech Republic",
+					"points": 20
+				}, {
+					"category": "Ireland",
+					"points": 30
+				}, {
+					"category": "Germany",
+					"points": 15
+				}, {
+					"category": "Australia",
+					"points": 10
+				} ],
+				"titleField": "country",
+				"valueField": "points",
+				"balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+				"innerRadius": "30%",
+				"labelsEnabled": false,
+				"export": {
+					"enabled": true
+				}
+			} );
+		</script>
+	</head>
+	<body>
+		<div id="chartdiv"></div>
+		<div id="chartdiv2"></div>
+	</body>
+</html>

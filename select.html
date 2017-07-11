@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Selectmenu - Custom Rendering</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $.widget( "custom.iconselectmenu", $.ui.selectmenu, {
+                _renderItem: function( ul, item ) {
+                    var li = $( "<li>" ),
+                        wrapper = $( "<div>", { text: item.label } );
+
+                    if ( item.disabled ) {
+                        li.addClass( "ui-state-disabled" );
+                    }
+
+                    $( "<span>", {
+                        style: item.element.attr( "data-style" ),
+                        "class": "ui-icon " + item.element.attr( "data-class" )
+                    })
+                        .appendTo( wrapper );
+
+                    return li.append( wrapper ).appendTo( ul );
+                }
+            });
+
+            $( "#filesA" )
+                .iconselectmenu()
+                .iconselectmenu( "menuWidget" )
+                .addClass( "ui-menu-icons" );
+
+        } );
+    </script>
+
+</head>
+<body>
+
+<div class="demo">
+
+    <form action="#">
+        <h2>Selectmenu with framework icons</h2>
+        <fieldset>
+            <select name="filesA" id="filesA">
+                <option value="jquery" data-class="ui-icon-script">jQuery.js</option>
+                <option value="jquerylogo" data-class="ui-icon-image">jQuery Logo</option>
+                <option value="jqueryui" data-class="ui-icon-script">ui.jQuery.js</option>
+                <option value="jqueryuilogo" selected="selected" data-class="ui-icon-image">jQuery UI Logo</option>
+                <option value="somefile" disabled="disabled" data-class="ui-icon-help">Some unknown file</option>
+            </select>
+        </fieldset>
+    </form>
+
+</div>
+
+
+</body>
+</html>
