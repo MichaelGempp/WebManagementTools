@@ -4,55 +4,59 @@
 
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="chartist.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="jquery-ui.css">
+    <link rel="stylesheet" href="css/chartist.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 <body>
 
 <div id="chartdiv"></div>
 
-
 <div id="tblPol">
     <h2>Politische Einflussfaktoren</h2>
-        <form>
-            <table id="tblPolTre">
-                <tr id="headerRow">
-                    <th>Nr</th>
-                    <th>Einflussfaktoren</th>
-                    <th>Auswirkungen</th>
-                    <th>Stärke der Auswirkung</th>
-                    <th>Trend</th>
-                    <th>Mögliche Massnahmen</th>
-                    <th>Status</th>
-                </tr>
-            </table>
-            <br>
-        </form>
-
-
-
+    <ul class="list-group">
+        <li>Politische Einflussfaktoren </li>
+        <li><a href="#" data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span><span class="badge">0</span></a></li>
+        <li><a href="#" data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><span class="badge">0</span></a></li>
+        <li><a href="#" data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span><span class="badge">0</span></a></li>
+    </ul>
+    <form>
+        <table id="tblPolTre">
+            <tr id="headerRow">
+                <th>Nr</th>
+                <th>Einflussfaktoren</th>
+                <th>Auswirkungen</th>
+                <th>Stärke der Auswirkung</th>
+                <th>Trend</th>
+                <th>Mögliche Massnahmen</th>
+                <th>Status</th>
+            </tr>
+        </table>
+        <br>
+    </form>
     <p>Sum</p>
-   <input id="outSum" type="number" name="quantity" min="1" max="100"> </input>
-    <button id="btnAdd">Add</button>
+   <input> id="outSumPol" type="number" min="1" max="100">
+    <button id="btnAddPol">Add</button>
 </div>
 
 
-<!--<i class="fa fa-arrow-circle-down" style="font-size:36px"></i>-->
 
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="jquery-ui.js"></script>
-<script type="text/javascript" src="jscript.js"></script>
-<script type="text/javascript" src="data.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jscript.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
+
+<script type="text/javascript" src="amcharts/amcharts.js"></script>
+<script type="text/javascript" src="amcharts/radar.js"></script>
+<script type="text/javascript" src="amcharts/plugins/export/export.min.js"></script>
+<script type="text/javascript" src="amcharts/themes/light.js"></script>
 
 
-<script src="amcharts/amcharts.js"></script>
-<script src="amcharts/radar.js"></script>
-<script src="amcharts/plugins/export/export.min.js"></script>
-<script src="amcharts/themes/light.js"></script>
+
 
 
 </body>
