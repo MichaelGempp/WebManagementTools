@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/chartist.css"/>
+    <link rel="stylesheet" href="css/bcg_matrix_style.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+
+
+</head>
+<body>
+
+<div id="chartdiv"></div>
+
+<div id="tblPol">
+    <h2>Politische Einflussfaktoren</h2>
+    <ul class="list-group">
+        <li>Politische Einflussfaktoren </li>
+        <li><a href="#" data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span><span class="badge">0</span></a></li>
+        <li><a href="#" data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><span class="badge">0</span></a></li>
+        <li><a href="#" data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span><span class="badge">0</span></a></li>
+    </ul>
+    <form>
+        <table id="tblPolTre">
+            <tr id="headerRow">
+                <th>Nr</th>
+                <th>Einflussfaktoren</th>
+                <th>Auswirkungen</th>
+                <th>Stärke der Auswirkung</th>
+                <th>Trend</th>
+                <th>Mögliche Massnahmen</th>
+                <th>Status</th>
+            </tr>
+        </table>
+        <br>
+    </form>
+    <p>Sum</p>
+   <input> id="outSumPol" type="number" min="1" max="100">
+    <button id="btnAddPol">Add</button>
+</div>
+
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bcg_matrix_jscript.js"></script>
+
+<!-- Resources -->
+<script src="amcharts/amcharts.js"></script>
+<script src="amcharts/xy.js"></script>
+<script src="amcharts/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+<script src="amcharts/themes/light.js"></script>
+
+
+
+
+
+</body>
+</html>
