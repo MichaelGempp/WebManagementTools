@@ -1,28 +1,37 @@
+
+var chart = null;
+var dataprovider;
 $(document).ready(function(){
 
 
-    var chart = AmCharts.makeChart( "chartdiv", {
+    var pointsPol = 2;
+
+
+    dataprovider = [ {
+        "category": "Political",
+        "points": Number(pointsPol)
+    }, {
+        "category": "Legal",
+        "points": 2
+    }, {
+        "category": "Enviromental",
+        "points": 2
+    }, {
+        "category": "Technological",
+        "points": 2
+    }, {
+        "category": "Social",
+        "points": 2
+    }, {
+        "category": "Econimic",
+        "points": 2
+    } ];
+
+
+    chart = AmCharts.makeChart( "chartdiv", {
         "type": "radar",
         "theme": "light",
-        "dataProvider": [ {
-            "category": "Political",
-            "points": 2
-        }, {
-            "category": "Legal",
-            "points": 2
-        }, {
-            "category": "Enviromental",
-            "points": 2
-        }, {
-            "category": "Technological",
-            "points": 2
-        }, {
-            "category": "Social",
-            "points": 2
-        }, {
-            "category": "Econimic",
-            "points": 2
-        } ],
+        "dataProvider": dataprovider,
         "valueAxes": [ {
             "axisTitleOffset": 20,
             "minimum": 0,
@@ -54,7 +63,6 @@ $(document).ready(function(){
     });
 
 
-
     $('#btnAdd').click(function(){
 
         $('#tblPolTre')
@@ -63,14 +71,14 @@ $(document).ready(function(){
             '<td id="index">'+$iTblPolTre+'</td>' +
             '<td><input type="text" name="0.1"></td>' +
             '<td><input type="text" name="0.2"></td>' +
-            '<td><input type="number" name="quantity" min="1" max="4"></td>' +
-                '   <td ALIGN="center"> ' +
-                    ' <select name="trend"> ' +
+            '<td><input class="quantity" type="number" name="quantity" min="1" max="4"></td>' +
+                '<td>' +
+                '   <select name="trend"> ' +
                         '<option value="up">up</option> ' +
                         '<option value="hover">hover</option> ' +
                         '<option value="down">down</option> ' +
-            '       </select> ' +
-            '</td>  ' +
+                '  </select> ' +
+                '</td>  ' +
             '<td><input type="text" name="0.5"></td> ' +
             '<td><input type="text" name="0.6"></td> ' +
             '</tr>');
@@ -85,13 +93,53 @@ $(document).ready(function(){
 
     $('#btnAdd').click();
 
+    $('#outSum').change(function () {
+        updateValue()
+    });
+
 
 
 });
 
 function sumPoints() {
-   var clmn = $('table tr > td:nth-child(3), table tr > th:nth-child(3)')
-        .data();
-};
+    var sum = 0;
+    $('.quantity').each(function(i, obj) {
+        var val  = $(this).val();
+        sum = Number(sum) + Number(val);
+    });
+    $('#outSum').val(sum);
+}
+
+function updateValue() {
+    pointsPol = $('#outSum').val();
+    chart.dataProvider = createDataset(pointsPol);
+    chart.validateData();
+
+}
+
+
+
+function createDataset(pointsPol){
+    return dataprovider = [ {
+        "category": "Political",
+        "points": Number(pointsPol)
+    }, {
+        "category": "Legal",
+        "points": 2
+    }, {
+        "category": "Enviromental",
+        "points": 2
+    }, {
+        "category": "Technological",
+        "points": 2
+    }, {
+        "category": "Social",
+        "points": 2
+    }, {
+        "category": "Econimic",
+        "points": 2
+    } ];
+
+}
 
 
