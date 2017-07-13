@@ -80,11 +80,11 @@ $(document).ready(function(){
     createTable($("#thOek"),idTablOek,"Ökologische Einflussfaktoren");
     createTable($("#thRech"),idTablRec,"Rechtliche Einflussfaktoren");
 
-    function createTable(th,idTable,title){
+    function createTable(td,idTable,title){
 
         //Table wird in th eingefügt
 
-            th.append('<div id="'+idTable+'">' +
+            td.append('<div id="'+idTable+'" class="divTable">' +
                 '<h2>'+title+'</h2>' +
                 '<ul class="list-group"><li>'+title+'</li>' +
                 '<li>Summe <span id = Sum class="badge">0</span></li>' +
@@ -123,7 +123,7 @@ $(document).ready(function(){
             '</button> <button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button">' +
             '<span class="glyphicon glyphicon-plus"></span>' +
             '</button>' +
-            '</div><!-- end button group --> </div>' +
+            '</div> '+
             '</td>' +
             '<td><' +
             'div class="trend">' +
@@ -241,16 +241,7 @@ $(document).ready(function(){
 
     };
 
-
-
-
-
-
-
-
 });
-
-
 
 //-----------------------------------------------------------------------------------------------------------
 function refreshChart() {

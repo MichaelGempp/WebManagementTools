@@ -32,28 +32,6 @@ $(document).ready(function(){
     } ];
 
 
-/*    chart = AmCharts.makeChart( "chartdiv", {
-        "type": "radar",
-        "theme": "light",
-        "dataProvider": dataprovider,
-        "valueAxes": [ {
-            "axisTitleOffset": 20,
-            "minimum": 0,
-            "maximum": 7,
-            "axisAlpha": 0.15
-        } ],
-        "startDuration": 2,
-        "graphs": [ {
-            "balloonText": "[[value]] points",
-            "bullet": "round",
-            "lineThickness": 2,
-            "valueField": "points"
-        } ],
-        "categoryField": "category",
-        "export": {
-            "enabled": true
-        }
-    } );*/
 
     var chart = AmCharts.makeChart( "chartdiv", {
         "type": "xy",
@@ -62,11 +40,11 @@ $(document).ready(function(){
             "fixedPosition":true,
         },
         "dataProvider": [ {
-            "y": 10,
-            "x": 14,
+            "y": 1,
+            "x": 3,
             "value": 59,
-            "y2": -5,
-            "x2": -3,
+            "y2": 4,
+            "x2": 5,
             "value2": 44
         }, {
             "y": 5,
@@ -82,42 +60,17 @@ $(document).ready(function(){
             "y2": -4,
             "x2": 6,
             "value2": 35
-        }, {
-            "y": -6,
-            "x": 5,
-            "value": 65,
-            "y2": -5,
-            "x2": -6,
-            "value2": 168
-        }, {
-            "y": 15,
-            "x": -4,
-            "value": 92,
-            "y2": -10,
-            "x2": -8,
-            "value2": 102
-        }, {
-            "y": 13,
-            "x": 1,
-            "value": 8,
-            "y2": -2,
-            "x2": 0,
-            "value2": 41
-        }, {
-            "y": 1,
-            "x": 6,
-            "value": 35,
-            "y2": 0,
-            "x2": -3,
-            "value2": 16
         } ],
         "valueAxes": [ {
+            "maximum": "10",
+            "minimum": "0",
             "position": "bottom",
             "axisAlpha": 0
         }, {
-            "minMaxMultiplier": 1.2,
+            "maximum": "10",
+            "minimum": "0",
+            "position": "left",
             "axisAlpha": 0,
-            "position": "left"
         } ],
         "startDuration": 1.5,
         "graphs": [ {
@@ -152,152 +105,180 @@ $(document).ready(function(){
 
 
 
-
-    var thHeader = ["Econimic","Political","Legal","Enviromental","Technological","Social"];
-
-    var iTblPolTre = 1;
-
-    $('#tblPol').change(function (){
-        alert("Change");
-        sumPoints();
-    });
+    createTable($("#tblContainer"),"tbl","Politische Einflussfaktoren");
 
 
-    $('#btnAddPol').click(function(){
+    function createTable(td,idTable,title){
 
-        $('#tblPolTre')
-            .append('      ' +
-            '<tr> ' +
-            '<td id="index">'+iTblPolTre+'</td>' +
-            '<td><input type="text" name="0.1"></td>' +
-            '<td><input type="text" name="0.2"></td>' +
-                '<td><' +
-                    '<div class="plus_minus"> ' +
-                    '<div class="form-control input-sm center merge-bottom-input">0</div>' +
-                    '<div class="btn-group btn-block" role="group" aria-label="plus-minus">' +
-                    '<button type="button" class="btn btn-sm btn-danger minus-button merge-top-left-button" disabled="disabled"><span class="glyphicon glyphicon-minus"></span></button> ' +
-                    '<button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button"><span class="glyphicon glyphicon-plus"></span></button>' +
-                    '</div><!-- end button group -->' +
-                    '</div> <!-- end column -->' +
+        //Table wird in th eingefügt
+
+        td.append('<div id="'+idTable+'" class="divTable">' +
+            '<h2>'+title+'</h2>' +
+            '<ul class="list-group"><li>'+title+'</li>' +
+            '<li>Summe <span id = Sum class="badge">0</span></li>' +
+            '<li><a href="#" data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span><span class="badge glyphbadge">0</span></a></li>' +
+            '<li><a href="#" data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><span class="badge glyphbadge">0</span></a></li>' +
+            ' <li><a href="#" data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span><span class="badge glyphbadge">0</span></a></li>' +
+            '</ul><form>' +
+            '<table>' +
+            '<tr>' +
+            '<th>Nr</th>' +
+            '<th>Produkt</th>' +
+            '<th>Umsatz</th>' +
+            '<th>Marktwachstum</th' +
+            '><th>Relativer Marktanteil</th>' +
+            '<th>Bemerkungen</th>' +
+            '</tr>' +
+            '</table>' +
+            '</form><' +
+            'button>Add</button></div>');
+
+        // Zeile wird hinzugefugt
+
+        var iTblRow = 1;
+
+        $('#'+idTable+' button').click(function () {
+            $('#'+idTable+' table').append('      ' +
+                '<tr> ' +
+                '<td id="index">'+iTblRow+'</td>' +
+                '<td><input type="text" name="0.1"></td>' + // Produkt
+                '<td>' + //Umsatz
+                '<div class="plus_minus"><div class="form-control input-sm center merge-bottom-input">0</div>' +
+                '<div class="btn-group btn-block" role="group" aria-label="plus-minus">' +
+                '<button type="button" class="btn btn-sm btn-danger minus-button merge-top-left-button" disabled="disabled">' +
+                '<span class="glyphicon glyphicon-minus"></span>' +
+                '</button> <button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button">' +
+                '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +
+                '</div> '+
                 '</td>' +
-                '<td><' +
-                    'div class="trend">' +
-                '<div class="btn-group"><a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Trend <span class="caret"></span></a>' +
-                '<ul class="dropdown-menu">' +
-                '<li><a href="#" data-value="1"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="2"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="3"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></a></li>' +
-                '</ul></div>' +
-                    '</div>' +
-                '</td>  ' +
-            '<td><input type="text" name="0.5"></td> ' +
-                '<td><' +
-                'div class="status">' +
-                '<div class="btn-group"><a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Status <span class="caret"></span></a>' +
-                '<ul class="dropdown-menu">' +
-                '<li><a href="#" data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></a></li>' +
-                '</ul></div>' +
-                '</div>' +
-                '</td>  ' +
-            '</tr>');
+                '<td>' + //Marktwachstum
+                '<div class="plus_minus"><div class="form-control input-sm center merge-bottom-input">0</div>' +
+                '<div class="btn-group btn-block" role="group" aria-label="plus-minus">' +
+                '<button type="button" class="btn btn-sm btn-danger minus-button merge-top-left-button" disabled="disabled">' +
+                '<span class="glyphicon glyphicon-minus"></span>' +
+                '</button> <button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button">' +
+                '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +
+                '</div> '+
+                '</td>' +
+                '<td>' +//Relativer Marktanteil
+                '<input id="ex8" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/><' +
+                '/td>' +
+            '<td><input type="text" name="0.2"></td>' + // Bemerkung
+                '</tr>');
+
+            //slider
+            $("#ex8").slider({
+                tooltip: 'always'
+            });
+
+            iTblRow ++;
 
 
-        $(".dropdown-menu li a").click(function(){
-            var obj = $(this).children().clone();
-            var selText = $(this).text();
-            $(this).parents('.btn-group').find('.dropdown-toggle').html(selText).append(obj);
-            sumStat();
+            //ersetzt text durch Zeichen
 
-            $(".list-group li a ").children().eq(1).text($('.glyphicon-remove-sign').length - iTblPolTre);
-            $(".list-group li a ").children().eq(3).text($('.glyphicon-ok-sign').length - iTblPolTre);
-            $(".list-group li a ").children().eq(5).text($('.glyphicon-alert').length - iTblPolTre);
+            $('#'+idTable+' .dropdown-menu li a').unbind();
+            $('#'+idTable+' .dropdown-menu li a').click(function(){
 
-        });
+                var obj = $(this).children().clone();
+                var selText = $(this).text();
+                $(this).parents('.btn-group').find('.dropdown-toggle').html(selText).append(obj);
+
+                //aktualisiert anzahl der Zeichen in der übersicht
+                var countglyphs = [$('#'+idTable+' .status .dropdown-toggle .glyphicon-remove-sign').length,
+                    $('#'+idTable+' .status .dropdown-toggle .glyphicon-ok-sign').length,
+                    $('#'+idTable+' .status .dropdown-toggle .glyphicon-alert').length];
+
+                $('#'+idTable+' .list-group').find(".glyphbadge").each(function (i) {
+
+                    $(this).text(countglyphs[i]);
+                });
+            });
 
 
-        $('.minus-button').unbind();
+            $('#'+idTable+' .minus-button').unbind();
 
-        $('.minus-button').click(function(e){
+            $('#'+idTable+' .minus-button').click(function(e){
 
-            // change this to whatever minimum you'd like
-            const minValue = 0;
+                // change this to whatever minimum you'd like
+                const minValue = 0;
 
-            const currentInput = $(e.currentTarget).parent().prev()[0];
+                const currentInput = $(e.currentTarget).parent().prev()[0];
 
-            minusInputValue = $(currentInput).html();
+                minusInputValue = $(currentInput).html();
 
-            if (minusInputValue > minValue) {
-                minusInputValue --;
-                $($(e.currentTarget).next()).removeAttr('disabled');
-                $(currentInput).html(minusInputValue);
+                if (minusInputValue > minValue) {
+                    minusInputValue --;
+                    $($(e.currentTarget).next()).removeAttr('disabled');
+                    $(currentInput).html(minusInputValue);
 
-                if (minusInputValue <= minValue) {
-                    $(e.currentTarget).attr('disabled', 'disabled');
+                    if (minusInputValue <= minValue) {
+                        $(e.currentTarget).attr('disabled', 'disabled');
+                    }
                 }
-            }
-        });
 
-        $('.plus-button').unbind();
+            });
 
-        $('.plus-button').click(function(e) {
+            $('#'+idTable+' .plus-button').unbind();
 
-            const maxValue = 4;
+            $('#'+idTable+' .plus-button').click(function(e) {
 
-            const currentInput = $(e.currentTarget).parent().prev()[0];
+                const maxValue = 4;
 
-            plusInputValue = $(currentInput).html();
+                const currentInput = $(e.currentTarget).parent().prev()[0];
 
-            if (plusInputValue < maxValue) {
-                plusInputValue ++;
-                $($(e.currentTarget).prev()[0]).removeAttr('disabled');
-                $(currentInput).html(plusInputValue);
+                plusInputValue = $(currentInput).html();
 
-                if (plusInputValue >= maxValue) {
-                    $(e.currentTarget).attr('disabled', 'disabled');
+                if (plusInputValue < maxValue) {
+                    plusInputValue ++;
+                    $($(e.currentTarget).prev()[0]).removeAttr('disabled');
+                    $(currentInput).html(plusInputValue);
+
+                    if (plusInputValue >= maxValue) {
+                        $(e.currentTarget).attr('disabled', 'disabled');
+                    }
                 }
-            }
+
+            });
+
+            //$('#'+idTable+' .plus-button').add('#'+idTable+' .minus-button').unbind();
+            $('#'+idTable+' .plus-button').add('#'+idTable+' .minus-button').click(function () {
+                var sum = 0;
+                $('#'+idTable+' .input-sm').each(function(i, obj) {
+                    var val  = $(this).text();
+                    sum = Number(sum) + Number(val);
+                });
+                $('#'+idTable+' span:first').text((sum));
+
+                //UpdateChart
+                refreshChart();
+
+            });
+
+
         });
 
+        //anzahl Spalten
+        for (var i = 1; i< 5; i++){
+            $('#'+idTable+' button:last').click();
+        };
 
-        iTblPolTre ++;
-
-    });
-
-
-    //anzahl Spalten
-   for (var i = 1; i< 5; i++){
-        $('#btnAddPol').click();
-    }
-
-
-
-    $('#outSumPol').change(function () {
-        updateValue()
-    });
+    };
 
 });
 
-
-
 //-----------------------------------------------------------------------------------------------------------
-function sumPoints() {
-    var sum = 0;
-    $('.quantity').each(function(i, obj) {
-        var val  = $(this).val();
-        sum = Number(sum) + Number(val);
-    });
-    $('#outSumPol').val(sum);
-}
+function refreshChart() {
 
-function sumStat() {
 
-}
-
-function updateValue() {
-    pointsPol = $('#outSumPol').val();
-    chart.dataProvider = createDataset(pointsPol);
+    pointsPol =  $('#'+idTablPol+' span:first').text();
+    pointsLeg = $('#'+idTablEco+' span:first').text();
+    pointsEnv =  $('#'+idTablSoz+' span:first').text();
+    pointsTech = $('#'+idTablTech+' span:first').text();
+    pointsSoc =  $('#'+idTablOek+' span:first').text();
+    pointsEco =  $('#'+idTablRec+' span:first').text();
+    chart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
     chart.validateData();
 
 }
