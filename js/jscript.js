@@ -62,13 +62,8 @@ $(document).ready(function(){
 
     var iTblPolTre = 1;
 
-    $('#tblPol').change(function (){
-        alert("Change");
-        sumPoints();
-    });
 
-
-    $('#btnAddPol').click(function(){
+    $('#btnAddPol').click(function(el){
 
         $('#tblPolTre')
             .append('      ' +
@@ -76,22 +71,23 @@ $(document).ready(function(){
             '<td id="index">'+iTblPolTre+'</td>' +
             '<td><input type="text" name="0.1"></td>' +
             '<td><input type="text" name="0.2"></td>' +
-                '<td><' +
-                    '<div class="plus_minus"> ' +
-                    '<div class="form-control input-sm center merge-bottom-input">0</div>' +
-                    '<div class="btn-group btn-block" role="group" aria-label="plus-minus">' +
-                    '<button type="button" class="btn btn-sm btn-danger minus-button merge-top-left-button" disabled="disabled"><span class="glyphicon glyphicon-minus"></span></button> ' +
-                    '<button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button"><span class="glyphicon glyphicon-plus"></span></button>' +
-                    '</div><!-- end button group -->' +
-                    '</div> <!-- end column -->' +
+                '<td>' +
+                '<div class="plus_minus"><div class="form-control input-sm center merge-bottom-input">0</div>' +
+                '<div class="btn-group btn-block" role="group" aria-label="plus-minus">' +
+                '<button type="button" class="btn btn-sm btn-danger minus-button merge-top-left-button" disabled="disabled">' +
+                '<span class="glyphicon glyphicon-minus"></span>' +
+                '</button> <button type="button" class="btn btn-sm btn-success plus-button merge-top-right-button">' +
+                '<span class="glyphicon glyphicon-plus"></span>' +
+                '</button>' +
+                '</div><!-- end button group --> </div>' +
                 '</td>' +
                 '<td><' +
                     'div class="trend">' +
                 '<div class="btn-group"><a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Trend <span class="caret"></span></a>' +
                 '<ul class="dropdown-menu">' +
-                '<li><a href="#" data-value="1"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="2"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="3"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="1"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="2"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="3"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></a></li>' +
                 '</ul></div>' +
                     '</div>' +
                 '</td>  ' +
@@ -100,24 +96,36 @@ $(document).ready(function(){
                 'div class="status">' +
                 '<div class="btn-group"><a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Status <span class="caret"></span></a>' +
                 '<ul class="dropdown-menu">' +
-                '<li><a href="#" data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a></li>' +
-                '<li><a href="#" data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="1"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="2"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a></li>' +
+                '<li><a data-value="3"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></a></li>' +
                 '</ul></div>' +
                 '</div>' +
                 '</td>  ' +
             '</tr>');
 
 
+
+        $(".dropdown-menu li a").unbind();
         $(".dropdown-menu li a").click(function(){
+
             var obj = $(this).children().clone();
             var selText = $(this).text();
             $(this).parents('.btn-group').find('.dropdown-toggle').html(selText).append(obj);
-            sumStat();
 
-            $(".list-group li a ").children().eq(1).text($('.glyphicon-remove-sign').length - iTblPolTre);
-            $(".list-group li a ").children().eq(3).text($('.glyphicon-ok-sign').length - iTblPolTre);
-            $(".list-group li a ").children().eq(5).text($('.glyphicon-alert').length - iTblPolTre);
+
+            var countglyphs = [$(".status .dropdown-toggle .glyphicon-remove-sign").length,
+                $(".status .dropdown-toggle .glyphicon-ok-sign").length,
+                $(".status .dropdown-toggle .glyphicon-alert").length];
+
+
+            $(".list-group").find(".glyphbadge").each(function (i) {
+
+                    $(this).text(countglyphs[i]);
+            });
+
+
+
 
         });
 
@@ -142,6 +150,10 @@ $(document).ready(function(){
                     $(e.currentTarget).attr('disabled', 'disabled');
                 }
             }
+
+            sumAndUpdate();
+
+
         });
 
         $('.plus-button').unbind();
@@ -163,6 +175,8 @@ $(document).ready(function(){
                     $(e.currentTarget).attr('disabled', 'disabled');
                 }
             }
+
+            sumAndUpdate();
         });
 
 
@@ -178,30 +192,20 @@ $(document).ready(function(){
 
 
 
-    $('#outSumPol').change(function () {
-        updateValue()
-    });
-
 });
 
 
 
 //-----------------------------------------------------------------------------------------------------------
-function sumPoints() {
+function sumAndUpdate() {
     var sum = 0;
-    $('.quantity').each(function(i, obj) {
-        var val  = $(this).val();
+    $('.input-sm').each(function(i, obj) {
+        var val  = $(this).text();
         sum = Number(sum) + Number(val);
     });
-    $('#outSumPol').val(sum);
-}
+    $('#PolSum').text((sum));
 
-function sumStat() {
-
-}
-
-function updateValue() {
-    pointsPol = $('#outSumPol').val();
+    pointsPol = $('#PolSum').text();
     chart.dataProvider = createDataset(pointsPol);
     chart.validateData();
 
