@@ -1,6 +1,31 @@
 #chartdiv {
-    width	: 100%;
+    width	: 30%;
     height	: 500px;
+    float: left;
+}
+#tabContainer {
+    width: 70%;
+    height: 500px;
+    float: left;
+}
+.amount{
+    width: 20%;
+}
+.product,
+.notice{
+    float: left;
+}
+.notice{
+
 }
 
+table, th, td {
+    border: 1px solid black;
+}
 
+tbody{
+}
+
+td{
+    padding: 10px;
+}
