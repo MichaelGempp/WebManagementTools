@@ -6,12 +6,13 @@ $(document).ready(function(){
 
 
    function createDataSet(y,x,value) {
-       var dataset = {"y": y,
-           "x": x,
+       var dataset = {
+           "y": x,
+           "x": y,
            "value": value,
-           "y2": 0,
-           "x2": 0,
-           "value2": 0};
+           "y2": x,
+           "x2": y,
+           "value2": value};
        dataProvider.push(dataset);
    };
 
@@ -76,17 +77,17 @@ $(document).ready(function(){
         },
         "dataProvider": dataProvider,
         "valueAxes": [ {
-            "maximum": "10",
+            "maximum": "100",
             "minimum": "0",
             "position": "bottom",
             "axisAlpha": 0
         }, {
-            "maximum": "10",
+            "maximum": "100",
             "minimum": "0",
             "position": "left",
             "axisAlpha": 0
         } ],
-        "startDuration": 1.5,
+        "startDuration": 1,
         "graphs": graphs,
         "marginLeft": 46,
         "marginBottom": 35,
@@ -115,18 +116,75 @@ $(document).ready(function(){
            '<tr>' +
            '<td><p id="index"     data-index-number=1">'+rows+'</p></td> ' + //Index
             '<td><label class="product" for="product'+rows+'">Produkt</label><input class="product" type="text" name="product" id="product'+rows+'"></td> ' + // Label Input
-           '<td><p><label for="slider'+rows+'">Umsatz:</label><input type="text" class="amount" id="slider'+rows+'"><div class="slider-range-max"></div></td> ' +
+
+           '<td><div class="slider" id="slider"+rows><div id="custom-handle"+rows class="slidhandle" class="ui-slider-handle"></div></div></td>'+
+            '<td><div class="slider" id="slider"+(rows+1)><div id="custom-handle"+(rows+1) class="slidhandle" class="ui-slider-handle"></div></div></td>'+
+            '<td><div class="slider" id="slider"+(rows+2)<div id="custom-handle"+(rows+2) class="slidhandle" class="ui-slider-handle"></div></div></td>'+
+         /*  '<td><p><label for="slider'+rows+'">Umsatz:</label><input type="text" class="amount" id="slider'+rows+'"><div class="slider-range-max"></div></td> ' +
              '<td><p><label for="slider'+(rows+1)+'">Marktwachstum:</label><input type="text" class="amount" id="slider'+(rows+1)+'"></p><div class="slider-range-max"></div></td> ' +
-           '<td><p><label for="slider'+(rows+2)+'">Relativer Marktanteil:</label><input type="text" class="amount" id="slider'+(rows+2)+'"></p><div class="slider-range-max"></div></td>' +
+           '<td><p><label for="slider'+(rows+2)+'">Relativer Marktanteil:</label><input type="text" class="amount" id="slider'+(rows+2)+'"></p><div class="slider-range-max"></div></td>' +*/
            '<td><label for="notice'+rows+'">Bemerkung</label><input  class="notice"   type="text" name="notice" id="notice'+rows+'"></td> ' +
            '</tr>'
        ) ;
 
 
+
+
        //inputs disablen
         $(".amount").prop('disabled', true);
 
+        // neuer slider
+
+        //   $( function() {
+        //     var handle = $( "#custom-handle" );
+        //     $( "#slider" ).slider({
+        //         create: function() {
+        //             handle.text( $( this ).slider( "value" ) );
+        //         },
+        //         slide: function( event, ui ) {
+        //             handle.text( ui.value );
+        //         }
+        //     });
+        // } );
+
+
+/*
         $( function() {
+            var handle = $( "#custom-handle" );
+            $( "#slider" ).slider({
+                create: function() {
+                    handle.text( $( this ).slider( "value" ) );
+                },
+                slide: function( event, ui ) {
+                    handle.text( ui.value );
+                }
+            });
+        } );
+*/
+
+        $( ".slidhandle" ).each(function(){
+
+            var handle = $( "#this" );
+
+            $( ".slider" ).each(function(){
+
+                $("#this").slider({
+                    create: function() {
+                        handle.text( $( this ).slider( "value" ) );
+                    },
+                    slide: function( event, ui ) {
+                        handle.text( ui.value );
+                    }
+                })
+            });
+
+
+
+        });
+
+       // var allhandle = $( ".handle" ).each();
+
+      /*  $( function() {
             $( ".slider-range-max" ).slider({
                 range: "max",
                 min: 1,
@@ -138,7 +196,7 @@ $(document).ready(function(){
         $(".slider-range-max").click(function () {
             $(this).prev().find(".amount").val($(this).slider( "value" ));
         })
-
+*/
 
         // create Data
         $("#addData").click(function () {
