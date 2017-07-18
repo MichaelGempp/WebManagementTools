@@ -64,11 +64,6 @@ $(document).ready(function(){
     }
 
 
-
-
-
-
-
     var chart = AmCharts.makeChart( "chartdiv", {
         "type": "xy",
         "theme": "light",
@@ -112,25 +107,23 @@ $(document).ready(function(){
     $("#add").click(function () {
 
         // reihe erstellen
-       $("#tbl tbody").append('           ' +
-           '<tr>' +
-           '<td><p id="index"     data-index-number=1">'+rows+'</p></td> ' + //Index
-            '<td><label class="product" for="product'+rows+'">Produkt</label><input class="product" type="text" name="product" id="product'+rows+'"></td> ' + // Label Input
+        $("#tbl tbody").append('           ' +
+            '<tr>' +
+            '<td><p id="index"     data-index-number=1">' + rows + '</p></td> ' + //Index
+            '<td><label class="product" for="product' + rows + '">Produkt</label><input class="product" type="text" name="product" id="product' + rows + '"></td> ' + // Label Input
 
-           '<td><div class="slider" id="slider"+rows><div id="custom-handle"+rows class="slidhandle" class="ui-slider-handle"></div></div></td>'+
-            '<td><div class="slider" id="slider"+(rows+1)><div id="custom-handle"+(rows+1) class="slidhandle" class="ui-slider-handle"></div></div></td>'+
-            '<td><div class="slider" id="slider"+(rows+2)<div id="custom-handle"+(rows+2) class="slidhandle" class="ui-slider-handle"></div></div></td>'+
-         /*  '<td><p><label for="slider'+rows+'">Umsatz:</label><input type="text" class="amount" id="slider'+rows+'"><div class="slider-range-max"></div></td> ' +
+            '<td><div class="slider" id="slider'+(rows)+'"><div id="custom-handle'+(rows)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' + //irgendwas stimm nicht mit der klasse ?
+            '<td><div class="slider" id="slider'+(rows+1)+'"><div id="custom-handle'+(rows+1)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' +
+            '<td><div class="slider" id="slider'+(rows+2)+'""<div id="custom-handle'+(rows+2)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' +
+            /*  '<td><p><label for="slider'+rows+'">Umsatz:</label><input type="text" class="amount" id="slider'+rows+'"><div class="slider-range-max"></div></td> ' +
              '<td><p><label for="slider'+(rows+1)+'">Marktwachstum:</label><input type="text" class="amount" id="slider'+(rows+1)+'"></p><div class="slider-range-max"></div></td> ' +
-           '<td><p><label for="slider'+(rows+2)+'">Relativer Marktanteil:</label><input type="text" class="amount" id="slider'+(rows+2)+'"></p><div class="slider-range-max"></div></td>' +*/
-           '<td><label for="notice'+rows+'">Bemerkung</label><input  class="notice"   type="text" name="notice" id="notice'+rows+'"></td> ' +
-           '</tr>'
-       ) ;
+             '<td><p><label for="slider'+(rows+2)+'">Relativer Marktanteil:</label><input type="text" class="amount" id="slider'+(rows+2)+'"></p><div class="slider-range-max"></div></td>' +*/
+            '<td><label for="notice' + rows + '">Bemerkung</label><input  class="notice"   type="text" name="notice" id="notice' + rows + '"></td> ' +
+            '</tr>'
+        );
 
 
-
-
-       //inputs disablen
+        //inputs disablen
         $(".amount").prop('disabled', true);
 
         // neuer slider
@@ -148,39 +141,78 @@ $(document).ready(function(){
         // } );
 
 
-/*
-        $( function() {
-            var handle = $( "#custom-handle" );
-            $( "#slider" ).slider({
-                create: function() {
-                    handle.text( $( this ).slider( "value" ) );
-                },
-                slide: function( event, ui ) {
-                    handle.text( ui.value );
-                }
+        /*
+         $( function() {
+         var handle = $( "#custom-handle" );
+         $( "#slider" ).slider({
+         create: function() {
+         handle.text( $( this ).slider( "value" ) );
+         },
+         slide: function( event, ui ) {
+         handle.text( ui.value );
+         }
+         });
+         } );
+         */
+
+        $(function () {
+           slideri = $( ".slider" ).length;
+            for (var i = 1 ; i<slideri;i++){
+          var handle =   $( ".slidhandle:eq("+i+")")
+            $( ".slider:eq("+i+")").slider({
+                        create: function() {
+                             handle.text( $( this ).slider( "value" ) );
+                         },
+                         slide: function( event, ui ) {
+                             handle.text( ui.value );
+                         }
+                     });
+            }
+        })
+
+
+
+      /*  $(function () {
+
+                $( ".slider" ).each(function(i){
+                    $("#this").slider({
+                        create: function() {
+                            $( ".slidhandle:eq("+i+")" ).text( $( this ).slider( "value" ) );
+                        },
+                        slide: function( event, ui ) {
+                            $( ".slidhandle:eq("+i+")" ).text( ui.value );
+                        }
+                    })
+                });
+        })*/
+
+
+     /*   $(function () {
+
+            var eachhandles = $( ".slidhandle" );
+
+                eachhandles.each(function(){
+
+                var handle = $( "#this" );
+
+                $( ".slider" ).each(function(){
+
+                    $("#this").slider({
+                        create: function() {
+                            handle.text( $( this ).slider( "value" ) );
+                        },
+                        slide: function( event, ui ) {
+                            handle.text( ui.value );
+                        }
+                    })
+                });
+
+
+
             });
-        } );
-*/
 
-        $( ".slidhandle" ).each(function(){
+        })*/
 
-            var handle = $( "#this" );
-
-            $( ".slider" ).each(function(){
-
-                $("#this").slider({
-                    create: function() {
-                        handle.text( $( this ).slider( "value" ) );
-                    },
-                    slide: function( event, ui ) {
-                        handle.text( ui.value );
-                    }
-                })
-            });
-
-
-
-        });
 
        // var allhandle = $( ".handle" ).each();
 
