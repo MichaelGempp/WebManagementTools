@@ -6,39 +6,63 @@ $(function () {
         caption: 'Eingabe',
         initRows: 1,
         columns: [
-            { name: 'Produkt', display: 'Produkt', type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'} },
-            { name: 'Umsatz', display: 'Umsatz', type: 'ui-selectmenu', uiOption: { 'width': '100px' },
-                // You can use string / array / object / function on `ctrlOptions` for `ui-selectmenu` type
-                ctrlOptions: '0:Item 0;1:Item 1;2:Item 2;3:Item 3;4:Item 4'
-            },
-            { name: 'Marktwachstum', display: 'Marktwachstum', type: 'ui-selectmenu', uiOption: { 'width': '100px' },
-                // You can use string / array / object / function on `ctrlOptions` for `ui-selectmenu` type
-                ctrlOptions: '0: +;1: ++;2: +++;3: ++++'
-            },
-            { name: 'Relativer Marktanteil', display: 'Relativer Marktanteil', type: 'ui-selectmenu', uiOption: { 'width': '100px' },
-                // You can use string / array / object / function on `ctrlOptions` for `ui-selectmenu` type
-                ctrlOptions: '0:Item 0;1:Item 1;2:Item 2;3:Item 3;4:Item 4'
-            },
-            { name: 'Bemerkung', display: 'Bemerkung', type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'} ,
-                onChange: function (evt, rowIndex) {alert('You have changed value of Range at row ' + rowIndex);}},
-            { name: 'Range', display: 'Range', type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 5 },
-
+            { name: 'Produkt', display: 'Produkt',
+             onChange: function (evt, rowIndex) {
+                    alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'} },
+          
+            { name: 'Umsatz', display: 'Umsatz',
+             onChange: function (evt, rowIndex) {
+               
+             var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Umsatz', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 4 }, value: 1 },
+          
+            { name: 'UmsatzVal', display: '',
+             onChange: function (evt, rowIndex) {
+                   // alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+          
+            { name: 'Marktwachstum', display: 'Marktwachstum',
+             onChange: function (evt, rowIndex) {
+               
+            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Marktwachstum', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 1 ,},
+          
+            { name: 'MarktwachstumVal', display: '',
+             onChange: function (evt, rowIndex) {
+               
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+          
+            { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
+             onChange: function (evt, rowIndex) {
+               
+            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'RelativerMarktanteil', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 1 },
+          
+            { name: 'RelativerMarktanteilVal', display: '',
+             onChange: function (evt, rowIndex) {
+                //    alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+          
+            { name: 'Bemerkung', display: 'Bemerkung',
+             onChange: function (evt, rowIndex) {
+                 //   alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}}
         ]
     });
+  
+  
 
 
-
-
-    // Handle `Load` button click
-    $('#btnLoad').button().click(function () {
-        $('#tblAppendGrid').appendGrid('load', [
-            { 'Album': 'Dearest', 'Artist': 'Theresa Fu', 'Year': '2009', 'Origin': 1, 'Poster': true, 'Price': 168.9, 'RecordId': 123 },
-            { 'Album': 'To be Free', 'Artist': 'Arashi', 'Year': '2010', 'Origin': 3, 'Poster': true, 'Price': 152.6, 'RecordId': 125 },
-            { 'Album': 'Count On Me', 'Artist': 'Show Luo', 'Year': '2012', 'Origin': 2, 'Poster': false, 'Price': 306.8, 'RecordId': 127 },
-            { 'Album': 'Wonder Party', 'Artist': 'Wonder Girls', 'Year': '2012', 'Origin': 4, 'Poster': true, 'Price': 108.6, 'RecordId': 129 },
-            { 'Album': 'Reflection', 'Artist': 'Kelly Chen', 'Year': '2013', 'Origin': 1, 'Poster': false, 'Price': 138.2, 'RecordId': 131 }
-        ]);
-    });
     // Handle `Serialize` button click
     $('#btnSerialize').button().click(function () {
         alert('Here is the serialized data!!\n' + $(document.forms[0]).serialize());
