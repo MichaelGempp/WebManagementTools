@@ -23,7 +23,7 @@ $(function () {
             { name: 'UmsatzVal', display: '',
              onChange: function (evt, rowIndex) {
                    // alert(rowIndex);
-                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0}, ctrlCss: { width: '30px'} },
           
             { name: 'Marktwachstum', display: 'Marktwachstum',
              onChange: function (evt, rowIndex) {
@@ -37,7 +37,7 @@ $(function () {
             { name: 'MarktwachstumVal', display: '',
              onChange: function (evt, rowIndex) {
                
-                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0 }, ctrlCss: { width: '30px'} },
           
             { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
              onChange: function (evt, rowIndex) {
@@ -46,12 +46,12 @@ $(function () {
                
             $('#tblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
                
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 1 },
+                }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 1 },
           
             { name: 'RelativerMarktanteilVal', display: '',
              onChange: function (evt, rowIndex) {
                 //    alert(rowIndex);
-                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'} },
           
             { name: 'Bemerkung', display: 'Bemerkung',
              onChange: function (evt, rowIndex) {
@@ -60,14 +60,7 @@ $(function () {
         ]
     });
   
-  
-
-
-    // Handle `Serialize` button click
-    $('#btnSerialize').button().click(function () {
-        alert('Here is the serialized data!!\n' + $(document.forms[0]).serialize());
-    });
-});
+  });
 
 }); //End Document Ready
 

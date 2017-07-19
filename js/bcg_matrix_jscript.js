@@ -14,7 +14,7 @@ $(document).ready(function(){
            "x2": y,
            "value2": value};
        dataProvider.push(dataset);
-   };
+   }
 
 
     var graphs =[ {
@@ -98,137 +98,97 @@ $(document).ready(function(){
     chart.addLabel("8%","70%","Marktwachstum","","30","","270");
     //chart.addLabel("","","","","","","","","","");
 
+ //------------------------------INPUT----------------------------------------------------
 
-    //disable input
-
-
-
-    var rows = 1;
-    $("#add").click(function () {
-
-        // reihe erstellen
-        $("#tbl tbody").append('           ' +
-            '<tr>' +
-            '<td><p id="index"     data-index-number=1">' + rows + '</p></td> ' + //Index
-            '<td><label class="product" for="product' + rows + '">Produkt</label><input class="product" type="text" name="product" id="product' + rows + '"></td> ' + // Label Input
-
-            '<td><div class="slider" id="slider'+(rows)+'"><div id="custom-handle'+(rows)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' + //irgendwas stimm nicht mit der klasse ?
-            '<td><div class="slider" id="slider'+(rows+1)+'"><div id="custom-handle'+(rows+1)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' +
-            '<td><div class="slider" id="slider'+(rows+2)+'""<div id="custom-handle'+(rows+2)+'" class="slidhandle" class="ui-slider-handle"></div></div></td>' +
-            /*  '<td><p><label for="slider'+rows+'">Umsatz:</label><input type="text" class="amount" id="slider'+rows+'"><div class="slider-range-max"></div></td> ' +
-             '<td><p><label for="slider'+(rows+1)+'">Marktwachstum:</label><input type="text" class="amount" id="slider'+(rows+1)+'"></p><div class="slider-range-max"></div></td> ' +
-             '<td><p><label for="slider'+(rows+2)+'">Relativer Marktanteil:</label><input type="text" class="amount" id="slider'+(rows+2)+'"></p><div class="slider-range-max"></div></td>' +*/
-            '<td><label for="notice' + rows + '">Bemerkung</label><input  class="notice"   type="text" name="notice" id="notice' + rows + '"></td> ' +
-            '</tr>'
-        );
-
-
-        //inputs disablen
-        $(".amount").prop('disabled', true);
-
-        // neuer slider
-
-        //   $( function() {
-        //     var handle = $( "#custom-handle" );
-        //     $( "#slider" ).slider({
-        //         create: function() {
-        //             handle.text( $( this ).slider( "value" ) );
-        //         },
-        //         slide: function( event, ui ) {
-        //             handle.text( ui.value );
-        //         }
-        //     });
-        // } );
-
-
-        /*
-         $( function() {
-         var handle = $( "#custom-handle" );
-         $( "#slider" ).slider({
-         create: function() {
-         handle.text( $( this ).slider( "value" ) );
-         },
-         slide: function( event, ui ) {
-         handle.text( ui.value );
-         }
-         });
-         } );
-         */
-
-        $(function () {
-           slideri = $( ".slider" ).length;
-            for (var i = 1 ; i<slideri;i++){
-          var handle =   $( ".slidhandle:eq("+i+")")
-            $( ".slider:eq("+i+")").slider({
-                        create: function() {
-                             handle.text( $( this ).slider( "value" ) );
-                         },
-                         slide: function( event, ui ) {
-                             handle.text( ui.value );
-                         }
-                     });
-            }
-        })
-
-
-
-      /*  $(function () {
-
-                $( ".slider" ).each(function(i){
-                    $("#this").slider({
-                        create: function() {
-                            $( ".slidhandle:eq("+i+")" ).text( $( this ).slider( "value" ) );
-                        },
-                        slide: function( event, ui ) {
-                            $( ".slidhandle:eq("+i+")" ).text( ui.value );
-                        }
-                    })
-                });
-        })*/
-
-
-     /*   $(function () {
-
-            var eachhandles = $( ".slidhandle" );
-
-                eachhandles.each(function(){
-
-                var handle = $( "#this" );
-
-                $( ".slider" ).each(function(){
-
-                    $("#this").slider({
-                        create: function() {
-                            handle.text( $( this ).slider( "value" ) );
-                        },
-                        slide: function( event, ui ) {
-                            handle.text( ui.value );
-                        }
-                    })
-                });
-
-
-
-            });
-
-        })*/
-
-
-       // var allhandle = $( ".handle" ).each();
-
-      /*  $( function() {
-            $( ".slider-range-max" ).slider({
-                range: "max",
-                min: 1,
-                max: 10,
-                value: 1
-            });
-        } );
-
-        $(".slider-range-max").click(function () {
-            $(this).prev().find(".amount").val($(this).slider( "value" ));
-        })
-*/
+$(function () {
+    // Initialize appendGrid
+    $('#tblAppendGrid').appendGrid({
+        caption: 'Eingabe',
+        initRows: 1,
+        columns: [
+            { name: 'Produkt', display: 'Produkt',
+             onChange: function (evt, rowIndex) {
+                    alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'produkt' },
+          
+            { name: 'Umsatz', display: 'Umsatz',
+             onChange: function (evt, rowIndex) {
+               
+             var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Umsatz', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 4 }, value: 1, ctrlClass: 'umsatz' },
+          
+            { name: 'UmsatzVal', display: '',
+             onChange: function (evt, rowIndex) {
+                   // alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0}, ctrlCss: { width: '30px'} },
+          
+            { name: 'Marktwachstum', display: 'Marktwachstum',
+             onChange: function (evt, rowIndex) {
+               
+            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Marktwachstum', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 1 ,},
+          
+            { name: 'MarktwachstumVal', display: '',
+             onChange: function (evt, rowIndex) {
+               
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0 }, ctrlCss: { width: '30px'} },
+          
+            { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
+             onChange: function (evt, rowIndex) {
+               
+            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'RelativerMarktanteil', rowIndex);
+               
+            $('#tblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
+               
+                }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 1 },
+          
+            { name: 'RelativerMarktanteilVal', display: '',
+             onChange: function (evt, rowIndex) {
+                //    alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'} },
+          
+            { name: 'Bemerkung', display: 'Bemerkung',
+             onChange: function (evt, rowIndex) {
+                 //   alert(rowIndex);
+                }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}}
+        ]
+    });
+  
+  $('#btnSubmit').button();
+  
+    $.validator.addClassRules('produkt', {
+        required: true,
+        minlength: 1
+    });
+    $.validator.addClassRules('umsatz', {
+        required: true,
+        number: true,
+        min: 1
+    });
+    // Add custom year validation method
+   //     $.validator.addMethod('year', function (value, element) {
+   //         return (value && -1 != value.search(/^20[0-9]{2}$/));
+   //     }, 'Please input valid year.');
+    // Initialize validation plugin
+    $(document.forms[0]).validate({
+        errorLabelContainer: '#ulError',
+        wrapper: 'li',
+        submitHandler: function () {
+            // For demo purpose only!
+            alert('Submitted!');
+        }
+    });
+  
+  });
+  
+  
+  
 
         // create Data
         $("#addData").click(function () {
@@ -260,10 +220,6 @@ $(document).ready(function(){
 
 
 
-        rows++;
-
-    });
-
 
     $("#add").click();
     //$(".slider-range-max").click();
@@ -282,8 +238,7 @@ function refreshChart() {
 
 
 function createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco){
-    return dataprovider = [ {
-    } ];
+    return dataprovider = [ {} ];
 }
 
 
