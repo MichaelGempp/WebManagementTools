@@ -118,12 +118,12 @@ $(function () {
                
             $('#tblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
                
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 4 }, value: 1, ctrlClass: 'umsatz' },
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 4 }, value: 0 },
           
             { name: 'UmsatzVal', display: '',
              onChange: function (evt, rowIndex) {
                    // alert(rowIndex);
-                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0}, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0}, ctrlCss: { width: '30px'} , ctrlClass: 'umsatzval'},
           
             { name: 'Marktwachstum', display: 'Marktwachstum',
              onChange: function (evt, rowIndex) {
@@ -132,12 +132,12 @@ $(function () {
                
             $('#tblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
                
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 1 ,},
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 0},
           
             { name: 'MarktwachstumVal', display: '',
              onChange: function (evt, rowIndex) {
                
-                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0 }, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0 }, ctrlCss: { width: '30px'}, ctrlClass: 'umsatzval'},
           
             { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
              onChange: function (evt, rowIndex) {
@@ -146,12 +146,12 @@ $(function () {
                
             $('#tblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
                
-                }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 1 },
+                }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 0},
           
             { name: 'RelativerMarktanteilVal', display: '',
              onChange: function (evt, rowIndex) {
                 //    alert(rowIndex);
-                }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'} },
+                }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'},ctrlClass: 'umsatzval' },
           
             { name: 'Bemerkung', display: 'Bemerkung',
              onChange: function (evt, rowIndex) {
@@ -166,7 +166,7 @@ $(function () {
         required: true,
         minlength: 1
     });
-    $.validator.addClassRules('umsatz', {
+    $.validator.addClassRules('umsatzval', {
         required: true,
         number: true,
         min: 1
@@ -181,7 +181,11 @@ $(function () {
         wrapper: 'li',
         submitHandler: function () {
             // For demo purpose only!
-            alert('Submitted!');
+          
+            alert('Here is the serialized data!!\n' + $(document.forms[0]).serializeArray());
+            //alert('Submitted!');
+          var data = $(document.forms[0]).serializeArray();
+          
         }
     });
   
@@ -219,10 +223,6 @@ $(function () {
         });
 
 
-
-
-    $("#add").click();
-    //$(".slider-range-max").click();
 
 
 }); //End Document Ready
