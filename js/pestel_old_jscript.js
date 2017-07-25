@@ -1,4 +1,8 @@
 
+//TODO Farbe in Chart geht nicht, Eingabe prüfen, Fläsche in Chart sollte fefüllt sein
+
+
+
 var chart = null;
 var dataprovider;
 var idTablPol = "pol";
@@ -46,14 +50,35 @@ $(document).ready(function(){
             "axisTitleOffset": 20,
             "minimum": 0,
             "maximum": 7,
-            "axisAlpha": 0.15
+            "axisAlpha": 0.15,
+            "guides": [{
+                "value": 0,
+                "toValue": 2,
+                "fillColor": "#c00",
+                "fillAlpha": 0.2
+            }, {
+                "value": 2,
+                "toValue": 4,
+                "fillColor": "#c00",
+                "fillAlpha": 0.2
+            }, {
+                "value": 4,
+                "toValue": 6,
+                "fillColor": "#cc0",
+                "fillAlpha": 0.2
+            }, {
+                "value": 6,
+                "toValue": 8,
+                "fillColor": "#0c0",
+                "fillAlpha": 0.2
+            }]
         } ],
         "startDuration": 2,
         "graphs": [ {
             "balloonText": "[[value]] points",
             "bullet": "round",
             "lineThickness": 2,
-            "valueField": "points"
+            "valueField": "points",
         } ],
         "categoryField": "category",
         "export": {
