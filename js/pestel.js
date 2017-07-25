@@ -68,7 +68,7 @@ $(document).ready(function(){
 
 
     function handleChange(evt, rowIndex) {
-        alert('Selected Value = ' + evt.target.value);
+        $('#btnSubmit').click();
     }
 
 
@@ -97,7 +97,7 @@ $(document).ready(function(){
                 { name: 'EINFLUSS', display: 'EINFLUSS AUF ERGEBNIS ODER WETTBEWERBSFÄHIGKEIT',
                     onChange: function (evt, rowIndex) {
 
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '380px'}, ctrlClass: 'einfluss' },
+                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '416'}, ctrlClass: 'einfluss' },
 
 
                 { name: 'AUSWIRKUNG', display: 'AUSWIRKUNG', type: 'select',
