@@ -1,18 +1,18 @@
 $(document).ready(function(){
 
 
+    var dataProvider = [];
 
-   var dataProvider =  [{}];
-
-
-   function createDataSet(y,x,value) {
+   function createDataSet(y,x,value,name){
+        name = decodeURI(name);
        var dataset = {
            "y": x,
            "x": y,
            "value": value,
-           "y2": x,
-           "x2": y,
-           "value2": value};
+           "Name": name,
+           "y2": 0,
+           "x2": 0,
+           "value2": 0};
        dataProvider.push(dataset);
    }
 
@@ -45,7 +45,7 @@ $(document).ready(function(){
     // }
 
 
-    function createGraph (product){
+   /* function createGraph (product){
         var graph ={
             "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>"+product+":<b>[[value]]</b>",
             "bullet": "circle",
@@ -61,7 +61,7 @@ $(document).ready(function(){
 
         graphs.push(graph);
 
-    }
+    }*/
 
 
     var chart = AmCharts.makeChart( "chartdiv", {
@@ -70,20 +70,61 @@ $(document).ready(function(){
         "balloon":{
             "fixedPosition":true
         },
-        "dataProvider": dataProvider,
+        "dataProvider": dataProvider = [{
+            "y": 0,
+            "x": 0,
+            "value": 1,
+            "Name": "",
+            "y2": 0,
+            "x2": 0,
+            "value2": 0,
+            "alpha": 0
+        }
+            , {
+                "y": 0,
+                "x": 0,
+                "value": 10,
+                "Name": "",
+                "y2": 0,
+                "x2": 0,
+                "value2": 0,
+                "alpha": 0
+            }],
         "valueAxes": [ {
-            "maximum": "100",
+            "maximum": "10",
             "minimum": "0",
             "position": "bottom",
             "axisAlpha": 0
         }, {
-            "maximum": "100",
+            "maximum": "10",
             "minimum": "0",
             "position": "left",
             "axisAlpha": 0
         } ],
         "startDuration": 1,
-        "graphs": graphs,
+        "graphs": [ {
+            "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>value:<b>[[value]]</b>",
+            "balloonFunction": function(item) {
+                // using this in order not to display balloons for
+                // hidden bullets
+                if (item.alpha === 0)
+                    return "";
+                return "" + item.dataContext.value;
+            },
+            "bullet": "circle",
+            //"bulletBorderAlpha": 0.2,
+            //"bulletAlpha": 0.8,
+            "lineAlpha": 0,
+            "fillAlphas": 0,
+            "valueField": "value",
+            "xField": "x",
+            "yField": "y",
+            "labelPosition": "top",
+            "labelText": "[[Name]]",
+            "alphaField": "alpha",
+            "minBulletSize": 10,
+            "maxBulletSize": 100
+        }],
         "marginLeft": 46,
         "marginBottom": 35,
         "export": {
@@ -94,8 +135,8 @@ $(document).ready(function(){
 
 
 
-    chart.addLabel("40%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
-    chart.addLabel("8%","70%","Marktwachstum","","30","","270");
+    //chart.addLabel("40%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
+    //chart.addLabel("8%","70%","Marktwachstum","","30","","270");
     //chart.addLabel("","","","","","","","","","");
 
  //------------------------------INPUT----------------------------------------------------
@@ -108,7 +149,7 @@ $(function () {
         columns: [
             { name: 'Produkt', display: 'Produkt',
              onChange: function (evt, rowIndex) {
-                    alert(rowIndex);
+                
                 }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'produkt' },
           
             { name: 'Umsatz', display: 'Umsatz',
@@ -118,12 +159,12 @@ $(function () {
                
             $('#tblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
                
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 4 }, value: 0 },
+                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 400 }, value: 0 },
           
             { name: 'UmsatzVal', display: '',
              onChange: function (evt, rowIndex) {
-                   // alert(rowIndex);
-                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0}, ctrlCss: { width: '30px'} , ctrlClass: 'umsatzval'},
+             
+                }, type: 'text', ctrlAttr: { maxlength: 3, value: 0}, ctrlCss: { width: '30px'} , ctrlClass: 'umsatzval'},
           
             { name: 'Marktwachstum', display: 'Marktwachstum',
              onChange: function (evt, rowIndex) {
@@ -150,12 +191,12 @@ $(function () {
           
             { name: 'RelativerMarktanteilVal', display: '',
              onChange: function (evt, rowIndex) {
-                //    alert(rowIndex);
+        
                 }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'},ctrlClass: 'umsatzval' },
           
             { name: 'Bemerkung', display: 'Bemerkung',
              onChange: function (evt, rowIndex) {
-                 //   alert(rowIndex);
+
                 }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}}
         ]
     });
@@ -176,69 +217,120 @@ $(function () {
    //         return (value && -1 != value.search(/^20[0-9]{2}$/));
    //     }, 'Please input valid year.');
     // Initialize validation plugin
-    $(document.forms[0]).validate({
+    $(document.forms[0]).validate({             // Eingabe keine Sonderzeichen !!!!
         errorLabelContainer: '#ulError',
         wrapper: 'li',
         submitHandler: function () {
             // For demo purpose only!
+
+          var datastream = $(document.forms[0]).serialize();
+
+            var Prod = /Produkt_\d=(.*?)&/g;
+            var Umsatz = /UmsatzVal_\d=(.*?)&/g;
+            var Marktwachs = /MarktwachstumVal_\d=(.*?)&/g;
+            var RelMarkt = /RelativerMarktanteilVal_\d=(.*?)&/g;
+            var Bemerkung = /Bemerkung_\d=(.*?)&/g;
+
+            var s = datastream
+
+
+            var p;
+            var Produkte = [];
+
+            do {
+                p = Prod.exec(s);
+                if (p) {
+                  Produkte.push(p[1]);
+                }
+            } while (p);
+
+            var u;
+            var Umsätze = [];
+
+            do {
+                u = Umsatz.exec(s);
+                if (u) {
+                    Umsätze.push(u[1]);
+                }
+            } while (u);
+
+            var ma;
+            var Marktwachstums = [];
+
+            do {
+                ma = Marktwachs.exec(s);
+                if (ma) {
+                    Marktwachstums.push(ma[1]);
+                }
+            } while (ma);
+
+            var re;
+            var RelMarktAnt = [];
+
+
+            do {
+                re = RelMarkt.exec(s);
+                if (re) {
+                    RelMarktAnt.push(re[1]);
+                }
+            } while (re);
+
+            var be;
+            var Bemerkungen = [];
+
+
+            do {
+                be = Bemerkung.exec(s);
+                if (be) {
+                    Bemerkungen.push(be[1]);
+                }
+            } while (be)
+
+
+            graphs = [];
+
+
+            for (var i=0; i<Produkte.length;i++ ) {
+
+
+
+                var product = Produkte[i];
+                var ums = Umsätze[i];
+                var mark = Marktwachstums[i];
+                var relmark = RelMarktAnt[i];
+
+                y = mark;
+                x = relmark;
+               // value = (ums * 100);
+
+                createDataSet(y, x, ums,product);
+               // createGraph(product);
+
+
+            }
+
+
+            chart.dataProvider;
+
+            chart.validateData();
+
+
+
+
+        /*    var rowset= [];
+          for (i=0; i<rows; i++){    
+          rowset.push({row: data[data.length - 1].value[i]});
+          i++;
+          }
+*/
           
-            alert('Here is the serialized data!!\n' + $(document.forms[0]).serializeArray());
-            //alert('Submitted!');
-          var data = $(document.forms[0]).serializeArray();
-          
-        }
+        } //-----------------Submitted
     });
   
   });
-  
-  
-  
-
-        // create Data
-        $("#addData").click(function () {
-
-            dataProvider = [];
-            graphs = [];
-
-            var index = $("#tblBody").children().length;
-            for (var i=1; i <=index ; i++){
-                var product = $("#product"+i).val();
-                var ums =  $("#slider"+i).val();
-                var mark =  $("#slider"+(i+1)).val();
-                var relmark =  $("#slider"+(i+2)).val();
-
-                y  = mark;
-                x = relmark;
-                value = (ums * 10);
-
-                createDataSet(y,x,value);
-                createGraph (product);
-
-                chart.dataProvider = dataProvider;
-                chart.graphs = graphs;
-
-                chart.validateData();
-
-            }
-        });
-
-
-
 
 }); //End Document Ready
 
 //-----------------------------------------------------------------------------------------------------------
-function refreshChart() {
-
-    chart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
-    chart.validateData();
-
-}
-
-
-
-function createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco){
-    return dataprovider = [ {} ];
-}
 
 
