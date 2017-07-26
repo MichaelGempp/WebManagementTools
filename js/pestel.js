@@ -177,6 +177,9 @@ $(document).ready(function(){
 
                 var data = $('#tblAppendGrid').appendGrid('getRowValue', i);
 
+                    localStorage.setItem("Chancen"+i, data.CHANCEN);
+                    localStorage.setItem("Risiken"+i, data.RISIKEN);
+
                 selecter = data.FAKTOREN;
 
                 if(selecter === "1"){
