@@ -147,53 +147,17 @@ $(function () {
         caption: 'Eingabe',
         initRows: 1,
         columns: [
-            { name: 'Produkt', display: 'Produkt',
+            { name: 'produkt', display: 'Produkt',
              onChange: function (evt, rowIndex) {
                 
                 }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'produkt' },
           
-            { name: 'Umsatz', display: 'Umsatz',
-             onChange: function (evt, rowIndex) {
-               
-             var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'Umsatz', rowIndex);
-               
-            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
-               
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 400 }, value: 0 },
+           { name: 'umsatz', display: 'Umsatz', type: 'ui-spinner', ctrlAttr: { maxlength: 2 ,value: 0}, value: 0, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 10} },
           
-            { name: 'UmsatzVal', display: '',
-             onChange: function (evt, rowIndex) {
-             
-                }, type: 'text', ctrlAttr: { maxlength: 3, value: 0}, ctrlCss: { width: '30px'} , ctrlClass: 'umsatzval'},
-          
-            { name: 'Marktwachstum', display: 'Marktwachstum',
-             onChange: function (evt, rowIndex) {
-               
-            var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'Marktwachstum', rowIndex);
-               
-            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
-               
-                }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 0},
-          
-            { name: 'MarktwachstumVal', display: '',
-             onChange: function (evt, rowIndex) {
-               
-                }, type: 'text', ctrlAttr: { maxlength: 2, value: 0 }, ctrlCss: { width: '30px'}, ctrlClass: 'umsatzval'},
-          
-            { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
-             onChange: function (evt, rowIndex) {
-               
-            var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'RelativerMarktanteil', rowIndex);
-               
-            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
-               
-                }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 0},
-          
-            { name: 'RelativerMarktanteilVal', display: '',
-             onChange: function (evt, rowIndex) {
-        
-                }, type: 'text', ctrlAttr: { maxlength: 2,value: 0}, ctrlCss: { width: '30px'},ctrlClass: 'umsatzval' },
-          
+           { name: 'marktwachstum', display: 'Marktwachstum', type: 'ui-spinner', ctrlAttr: { maxlength: 2 ,value: 0}, value: 0, ctrlCss: { width: '120px' }, uiOption: { min: 0, max: 10} },
+
+            { name: 'relativerMarktanteil', display: 'Relativer Marktanteil', type: 'ui-spinner', ctrlAttr: { maxlength: 2 ,value: 0}, value: 0, ctrlCss: { width: '150px' }, uiOption: { min: 0, max: 10} },
+
             { name: 'Bemerkung', display: 'Bemerkung',
              onChange: function (evt, rowIndex) {
 
@@ -222,108 +186,37 @@ $(function () {
         errorLabelContainer: '#BcgUlError',
         wrapper: 'li',
         submitHandler: function () {
-            // For demo purpose only!
-
-          var datastream = $("#BcgForm").serialize();
-
-            var Prod = /Produkt_\d=(.*?)&/g;
-            var Umsatz = /UmsatzVal_\d=(.*?)&/g;
-            var Marktwachs = /MarktwachstumVal_\d=(.*?)&/g;
-            var RelMarkt = /RelativerMarktanteilVal_\d=(.*?)&/g;
-            var Bemerkung = /Bemerkung_\d=(.*?)&/g;
-
-            var s = datastream
 
 
-            var p;
-            var Produkte = [];
+            var rowcount =  $('#BcgTblAppendGrid').appendGrid('getRowCount');
 
-            do {
-                p = Prod.exec(s);
-                if (p) {
-                  Produkte.push(p[1]);
-                }
-            } while (p);
+            for (var i = 0; i<rowcount ;i++) {
 
-            var u;
-            var Umsätze = [];
+                var data = $('#BcgTblAppendGrid').appendGrid('getRowValue', i);
 
-            do {
-                u = Umsatz.exec(s);
-                if (u) {
-                    Umsätze.push(u[1]);
-                }
-            } while (u);
-
-            var ma;
-            var Marktwachstums = [];
-
-            do {
-                ma = Marktwachs.exec(s);
-                if (ma) {
-                    Marktwachstums.push(ma[1]);
-                }
-            } while (ma);
-
-            var re;
-            var RelMarktAnt = [];
+               // localStorage.setItem("Chancen" + i, data.chancen);
+               // localStorage.setItem("Risiken" + i, data.risiken);
 
 
-            do {
-                re = RelMarkt.exec(s);
-                if (re) {
-                    RelMarktAnt.push(re[1]);
-                }
-            } while (re);
-
-            var be;
-            var Bemerkungen = [];
-
-
-            do {
-                be = Bemerkung.exec(s);
-                if (be) {
-                    Bemerkungen.push(be[1]);
-                }
-            } while (be)
-
-
-            graphs = [];
-
-
-            for (var i=0; i<Produkte.length;i++ ) {
-
-
-
-                var product = Produkte[i];
-                var ums = Umsätze[i];
-                var mark = Marktwachstums[i];
-                var relmark = RelMarktAnt[i];
+                var product = data.produkt
+                var ums = data.umsatz
+                var mark = data.marktwachstum;
+                var relmark = data.relativerMarktanteil;
 
                 y = mark;
                 x = relmark;
-               // value = (ums * 100);
+                // value = (ums * 100);
 
-                createDataSet(y, x, ums,product);
-               // createGraph(product);
-
+                createDataSet(y, x, ums, product);
 
             }
+               // createGraph(product);
 
 
             BcgChart.dataProvider;
 
             BcgChart.validateData();
 
-
-
-
-        /*    var rowset= [];
-          for (i=0; i<rows; i++){    
-          rowset.push({row: data[data.length - 1].value[i]});
-          i++;
-          }
-*/
           
         } //-----------------Submitted
     });
