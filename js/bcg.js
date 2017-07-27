@@ -135,8 +135,8 @@ $(document).ready(function(){
 
 
 
-    //BcgChart.addLabel("40%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
-    //BcgChart.addLabel("8%","70%","Marktwachstum","","30","","270");
+    BcgChart.addLabel("30%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
+    BcgChart.addLabel("8%","70%","Marktwachstum","","30","","270");
     //BcgChart.addLabel("","","","","","","","","","");
 
  //------------------------------INPUT----------------------------------------------------
@@ -216,6 +216,10 @@ $(function () {
             BcgChart.dataProvider;
 
             BcgChart.validateData();
+
+            for (var i = 0; i<rowcount ;i++) {
+                dataProvider.pop();
+            }
 
           
         } //-----------------Submitted
