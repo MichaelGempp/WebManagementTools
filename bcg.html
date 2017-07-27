@@ -9,39 +9,41 @@
     <link href="css/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="amcharts/plugins/export/export.css"/>
      <link rel="stylesheet" href="css/jquery.appendGrid-1.6.3.min.css"/>
-    <link rel="stylesheet" href="css/bcg_matrix_style.css"/>
+    <link rel="stylesheet" href="css/bcg.css"/>
 
 
 
 </head>
 <body>
 
+<div id="BcgDivFrag">
 
-<div id="chartdiv"></div>
+    <div id="BcgDivChart"></div>
 
-<div id="tabContainer">
-  <form action="" method="post">
-<table id="tblAppendGrid">
-</table>
-<br />
-<button type="submit" id="btnSubmit">
-    Submit</button>
-<br />
-<br />
-<div style="font-weight: bold;">
-    Error Placement:</div>
-<div id="divErrorPlacement" style="min-height: 100px; border: 1px dotted #0000ff;">
-    <ul id="ulError">
-    </ul>
+    <div id="BcgDivContainer">
+        <form id="BcgForm" action="" method="post">
+            <table id="BcgTblAppendGrid">
+            </table>
+            <br />
+            <button type="submit" id="BcgBtnSubmit">Speichern</button>
+            <button id="BcgBtnPaste">Einfügen</button>
+            <br />
+            <br />
+            <div>Eingabehilfe:</div>
+            <div id="BcgDivErrorPlacement">
+                <ul id="BcgUlError"></ul>
+            </div>
+        </form>
+    </div>
+
 </div>
-  </form>
-</div>
+
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="js/jquery.appendGrid-1.6.3.min.js"></script>
   <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/bcg_matrix_jscript.js"></script>
+<script type="text/javascript" src="js/bcg.js"></script>
 
 <!-- Chart -->
 <script src="amcharts/amcharts.js"></script>

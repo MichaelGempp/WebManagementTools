@@ -83,11 +83,11 @@ $(document).ready(function(){
             caption: 'Eingabe',
             initRows: 1,
             columns: [
-                {name: 'faktoren', display: 'FAKTOREN', type: 'select',
+                {name: 'faktoren', display: 'FAKTOREN', type: 'select', ctrlClass: 'faktoren',
                     ctrlOptions: '1:POLITISCH ;2:WIRTSCHAFTLICH ;3:SOZIAL, ETHISCH, DEMOGRAPHISCH, GESELLSCHAFTLICH ;4:TECHNOLOGISCH ;5:UMWELTRELEVANT;6:RECHTLICH',
                     onChange: handleChange
                 },
-                { name: 'trend', display: '(MEGA)-TREND',
+                { name: 'trend', display: '(MEGA)-TREND',ctrlClass: 'trend',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'trend' },
@@ -97,17 +97,17 @@ $(document).ready(function(){
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'themen' },
 
-                { name: 'einfluss', display: 'EINFLUSS AUF ERGEBNIS ODER WETTBEWERBSFÄHIGKEIT',
+                { name: 'einfluss', display: 'EINFLUSS AUF ERGEBNIS / WETTBEWERBSFÄHIGKEIT',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '416'}, ctrlClass: 'einfluss' },
 
 
-                { name: 'auswirkung', display: 'AUSWIRKUNG', type: 'select',
+                { name: 'auswirkung', display: 'AUSWIRKUNG', type: 'select',ctrlClass: 'auswirkung',
                     ctrlOptions: '0: < choose >;1: gering;2:mittel ;3:hoch ;4:substanziell',
                     onChange: handleChange
                 },
-                { name: 'zeitachse', display: 'ZEITACHSE', type: 'select',
+                { name: 'zeitachse', display: 'ZEITACHSE', type: 'select',ctrlClass: 'zeitachse',
                     ctrlOptions: '0: < choose >;1: kurzfristig 6-12 Monate;2:mittelfristig 1-2 Jahre;3:langfristig > 2 Jahre;4:sehr langfristig > 5 Jahre',
                     onChange: handleChange
                 },
@@ -142,23 +142,18 @@ $(document).ready(function(){
 
         //-----------------------SUBMIT AND Validation
 
-        //$('#PestelBtnSubmit').button();
-
-        $.validator.addClassRules('produkt', {
+        $.validator.addClassRules('auswirkung', {
             required: true,
-            minlength: 1
-        });
-        $.validator.addClassRules('umsatzval', {
-            required: true,
-            number: true,
             min: 1
         });
-        // Add custom year validation method
-        //     $.validator.addMethod('year', function (value, element) {
-        //         return (value && -1 != value.search(/^20[0-9]{2}$/));
-        //     }, 'Please input valid year.');
-        // Initialize validation plugin
-
+        $.validator.addClassRules('zeitachse', {
+            required: true,
+            min: 1
+        });
+      /*  $.validator.addClassRules('trend', {
+        required: true,
+            minlength: 1
+        });*/
 
         $("#PestelBtnSubmit").click(function () {
 

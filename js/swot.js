@@ -7,51 +7,49 @@ $(document).ready(function(){
 
     //------------------------------INPUT----------------------------------------------------
 
-
+        var header = ["Chancen","Risiken","Stärken","Gefahren"];
 //------------------------------Chancen----------------------------------------------------
     $(function () {
         // Initialize appendGrid
-        $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid').each(function (index, item) {
+        $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid, #SwotStarkenTblAppendGrid, #SwotGefahrenTblAppendGrid').each(function (index, item) {
            $(item).appendGrid({
-            caption: 'Chancen',
+            caption: header[index],
             initRows: 1,
             columns: [
-                { name: 'chancen', display: 'CHANCEN',
+                { name: header[index].toLowerCase(), display: header[index],
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'parteien' },
 
-                { name: 'einfluss', display: 'Einfluss auf die Ergebnisse', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
+                { name: 'einfluss', display: 'Einfluss auf die Ergebnisse', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, value: 0,ctrlCss: { width: '200px' }, uiOption: { min: 0, max: 20} },
 
-                { name: 'umsetz', display: 'Umsetz-barkeit', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
+                { name: 'umsetz', display: 'Umsetzbarkeit', type: 'ui-spinner', ctrlAttr: { maxlength: 2 ,value: 0}, value: 0, ctrlCss: { width: '100px' }, uiOption: { min: 0, max: 20} },
 
-                { name: 'ranking', display: 'Ranking', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
+                { name: 'ranking', display: 'Ranking', type: 'ui-spinner', ctrlAttr: { maxlength: 2 ,value: 0}, value: 0, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
             ]
         });
         });
 
-        $(function() {
-            // Appending 2 empty rows.
-            var val = 0;
-            $('#SwotChancenTblAppendGrid').appendGrid('appendRow', 5);
-            for (var i = 1; i<6;i++){
-                val = i+1;
-                $('#SwotChancenTblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
-            }
-            // Appending 3 rows with data.
-            /*     $('#tblAppendGrid').appendGrid('appendRow', [
-                     { FAKTOREN: '2:WIRTSCHAFTLICH'},
-                 ]);*/
+
+        $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid, #SwotStarkenTblAppendGrid, #SwotGefahrenTblAppendGrid').each(function (index, item) {
+            $(item).appendGrid('appendRow', 5);
+
+
         });
-
-
-
-
 
         $("#SwotBtnPaste").click(function () {
 
 
-            var rowcount = $('#SwotChancenTblAppendGrid').appendGrid('getRowCount');
+            $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid, #SwotStarkenTblAppendGrid, #SwotGefahrenTblAppendGrid').each(function (index, item) {
+                var rowcount = $(item).appendGrid('getRowCount');
+
+                for (var i = 0; i < rowcount; i++) {
+                    var val = localStorage.getItem(header[index]+i);
+                    $(item).appendGrid('setCtrlValue', header[index].toLowerCase(), i, val);
+                }
+
+            });
+/*
 
             for (var i = 0; i < rowcount; i++) {
                 var val = localStorage.getItem("Chancen"+i);
@@ -59,6 +57,7 @@ $(document).ready(function(){
                 var val = localStorage.getItem("Risiken"+i);
                 $('#SwotChancenTblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
             }
+*/
 
 
         });
@@ -96,7 +95,21 @@ $(document).ready(function(){
             submitHandler: function () {
 
 
-                var rowcount =  $('#SwotTblAppendGrid').appendGrid('getRowCount');
+                $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid, #SwotStarkenTblAppendGrid, #SwotGefahrenTblAppendGrid').each(function (index, item) {
+                    var rowcount = $(item).appendGrid('getRowCount');
+
+                    for (var i = 0; i < rowcount; i++) {
+
+                        var val = $(item).appendGrid('getCtrlValue', header[index].toLowerCase(), i, val);
+                      //  var val = localStorage.getItem(header[index]+i);
+                        localStorage.setItem(header[index]+i, val);
+                    }
+
+                });
+
+
+
+              /*  var rowcount =  $('#SwotTblAppendGrid').appendGrid('getRowCount');
 
                 for (var i = 0; i<rowcount ;i++){
 
@@ -106,7 +119,7 @@ $(document).ready(function(){
                     localStorage.setItem("Risiken"+i, data.risiken);
 
                 }
-
+*/
 
 
             } //-----------------Submitted

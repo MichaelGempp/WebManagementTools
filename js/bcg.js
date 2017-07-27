@@ -64,7 +64,7 @@ $(document).ready(function(){
     }*/
 
 
-    var chart = AmCharts.makeChart( "chartdiv", {
+    var BcgChart = AmCharts.makeChart( "BcgDivChart", {
         "type": "xy",
         "theme": "light",
         "balloon":{
@@ -135,15 +135,15 @@ $(document).ready(function(){
 
 
 
-    //chart.addLabel("40%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
-    //chart.addLabel("8%","70%","Marktwachstum","","30","","270");
-    //chart.addLabel("","","","","","","","","","");
+    //BcgChart.addLabel("40%","80%","Relativer Marktanteil","","30"); //x - horizontal coordinate y - vertical coordinate text
+    //BcgChart.addLabel("8%","70%","Marktwachstum","","30","","270");
+    //BcgChart.addLabel("","","","","","","","","","");
 
  //------------------------------INPUT----------------------------------------------------
 
 $(function () {
     // Initialize appendGrid
-    $('#tblAppendGrid').appendGrid({
+    $('#BcgTblAppendGrid').appendGrid({
         caption: 'Eingabe',
         initRows: 1,
         columns: [
@@ -155,9 +155,9 @@ $(function () {
             { name: 'Umsatz', display: 'Umsatz',
              onChange: function (evt, rowIndex) {
                
-             var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Umsatz', rowIndex);
+             var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'Umsatz', rowIndex);
                
-            $('#tblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
+            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'UmsatzVal', rowIndex, value);
                
                 }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 400 }, value: 0 },
           
@@ -169,9 +169,9 @@ $(function () {
             { name: 'Marktwachstum', display: 'Marktwachstum',
              onChange: function (evt, rowIndex) {
                
-            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'Marktwachstum', rowIndex);
+            var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'Marktwachstum', rowIndex);
                
-            $('#tblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
+            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'MarktwachstumVal', rowIndex, value);
                
                 }, type: 'range', ctrlCss: { width: '80px' }, ctrlAttr: { min: 0, max: 10 }, value: 0},
           
@@ -183,9 +183,9 @@ $(function () {
             { name: 'RelativerMarktanteil', display: 'Relativer Marktanteil',
              onChange: function (evt, rowIndex) {
                
-            var value = $('#tblAppendGrid').appendGrid('getCtrlValue', 'RelativerMarktanteil', rowIndex);
+            var value = $('#BcgTblAppendGrid').appendGrid('getCtrlValue', 'RelativerMarktanteil', rowIndex);
                
-            $('#tblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
+            $('#BcgTblAppendGrid').appendGrid('setCtrlValue', 'RelativerMarktanteilVal', rowIndex, value);
                
                 }, type: 'range', ctrlCss: { width: '120px'}, ctrlAttr: { min: 0, max: 10 }, value: 0},
           
@@ -200,8 +200,7 @@ $(function () {
                 }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}}
         ]
     });
-  
-  $('#btnSubmit').button();
+
   
     $.validator.addClassRules('produkt', {
         required: true,
@@ -212,18 +211,20 @@ $(function () {
         number: true,
         min: 1
     });
-    // Add custom year validation method
-   //     $.validator.addMethod('year', function (value, element) {
-   //         return (value && -1 != value.search(/^20[0-9]{2}$/));
-   //     }, 'Please input valid year.');
-    // Initialize validation plugin
-    $(document.forms[0]).validate({             // Eingabe keine Sonderzeichen !!!!
-        errorLabelContainer: '#ulError',
+
+    $("#BcgBtnSubmit").click(function () {
+
+        $("#BcgForm").valid();
+
+    });
+
+    $("#BcgForm").validate({                // Eingabe keine Sonderzeichen !!!!
+        errorLabelContainer: '#BcgUlError',
         wrapper: 'li',
         submitHandler: function () {
             // For demo purpose only!
 
-          var datastream = $(document.forms[0]).serialize();
+          var datastream = $("#BcgForm").serialize();
 
             var Prod = /Produkt_\d=(.*?)&/g;
             var Umsatz = /UmsatzVal_\d=(.*?)&/g;
@@ -310,9 +311,9 @@ $(function () {
             }
 
 
-            chart.dataProvider;
+            BcgChart.dataProvider;
 
-            chart.validateData();
+            BcgChart.validateData();
 
 
 

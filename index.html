@@ -1,25 +1,176 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>WebToolbox</title>
+    <meta charset="utf-8">
+    <title>tabs demo</title>
 
-    <link rel="stylesheet" href="css/index.css"/>
+
+
+    <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="css/jquery.appendGrid-1.6.3.min.css"/>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/pestel.css"/>
+    <link rel="stylesheet" href="css/parties.css"/>
+    <link rel="stylesheet" href="css/swot.css"/>
+    <link rel="stylesheet" href="css/bcg.css"/>
+
 </head>
 <body>
 
-<h1>Web-Management-Toolbox</h1>
+<div id="tabs">
+    <ul>
+        <li><a href="#tab-1">Analyse</a></li>
+        <li><a href="#tab-2">Szenarien</a></li>
+        <li><a href="#tab-3">Strategien Entwickeln</a></li>
+        <li><a href="#tab-4">Umsetzung & Controlling</a></li>
+    </ul>
 
-<div id="picture">
-    <h6>Pestel Analyse</h6>
-<picture>
-    <a href="pestel.html">
-    <img src="images/pestel_img.PNG" alt="PESTEL" style="width:auto;">
-</picture>
+    <div id="tab-1">
+        <ul>
+            <li> <a href="#PestelDivFrag" id="PestelLiTab">PESTEL Analyse</a> </li>
+            <li> <a href="#SwotDivFrag" id="SwotLiTab">SWOT Analyse</a> </li>
+            <li> <a href="#PartiesDivFrag" id="PartiesLiTab">Intressierte Parteien</a> </li>
+        </ul>
 
+        <div id="PestelDivFrag">
+
+            <div id="PestelDivChart"></div>
+
+            <div id="PestelDivContainer">
+                <form id="PestelForm" action="" method="post">
+                    <table id="PestelTblAppendGrid">
+                    </table>
+                    <br />
+                    <button type="submit" id="PestelBtnSubmit">Speichern</button>
+                    <button id="PestelBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Eingabehilfe:</div>
+                    <div id="PestelDivErrorPlacement">
+                        <ul id="PestelUlError"></ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div id="SwotDivFrag">
+
+            <div id="SwotDivContainer">
+
+                <form id="SwotForm" action="" method="post">
+
+                    <table id="SwotTablContainer">
+                        <tr>
+                            <td><table id="SwotChancenTblAppendGrid"></table></td>
+                            <td><table id="SwotRisikenTblAppendGrid"></table></td>
+                        </tr>
+                        <tr>
+                            <td><table id="SwotStarkenTblAppendGrid"></table></td>
+                            <td><table id="SwotGefahrenTblAppendGrid"></table></td>
+                        </tr>
+                    </table>
+
+                    <br />
+                    <button type="submit" id="SwotBtnSubmit">Speichern</button>
+                    <button id="SwotBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Eingabehilfe:</div>
+                    <div id="SwotDivErrorPlacement">
+                        <ul id="SwotUlError"></ul>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        <div id="PartiesDivFrag">
+
+            <div id="PartiesDivContainer">
+                <form id="PartiesForm" action="" method="post">
+                    <table id="PartiesTblAppendGrid">
+                    </table>
+                    <br />
+                    <button type="submit" id="PartiesBtnSubmit">Speichern</button>
+                    <button id="PartiesBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Eingabehilfe:</div>
+                    <div id="PartiesDivErrorPlacement">
+                        <ul id="PartiesUlError"></ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="tab-2"></div>
+
+    <div id="tab-3">
+
+        <ul>
+            <li> <a href="#BcgDivFrag" id="BcgLiTab">BCG-Matrix</a> </li>
+
+        </ul>
+
+        <div id="BcgDivFrag">
+
+            <div id="BcgDivChart"></div>
+
+            <div id="BcgDivContainer">
+                <form id="BcgForm" action="" method="post">
+                    <table id="BcgTblAppendGrid">
+                    </table>
+                    <br />
+                    <button type="submit" id="BcgBtnSubmit">Speichern</button>
+                    <button id="BcgBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Eingabehilfe:</div>
+                    <div id="BcgDivErrorPlacement">
+                        <ul id="BcgUlError"></ul>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div id="tab-4">
+
+    </div>
 </div>
 
+
+
+<!--<script type="text/javascript" src="js/pestel.js"></script>-->
+<!--<script type="text/javascript" src="js/parties.js"></script>-->
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.appendGrid-1.6.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+
+<script type="text/javascript" src="amcharts/amcharts.js"></script>
+<script type="text/javascript" src="amcharts/radar.js"></script>
+<script src="amcharts/xy.js"></script>
+<script type="text/javascript" src="amcharts/plugins/export/export.min.js"></script>
+<script type="text/javascript" src="amcharts/themes/light.js"></script>
+
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/pestel.js"></script>
+<script type="text/javascript" src="js/parties.js"></script>
+<script type="text/javascript" src="js/swot.js"></script>
+<script type="text/javascript" src="js/bcg.js"></script>
 
 </body>
 </html>
