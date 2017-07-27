@@ -14,9 +14,20 @@
 <body>
 
 <div id="SwotDivContainer">
+    
     <form id="SwotForm" action="" method="post">
-        <table id="SwotTblAppendGrid">
+
+        <table id="SwotTablContainer">
+        <tr>
+            <td><table id="SwotChancenTblAppendGrid"></table></td>
+            <td><table id="SwotRisikenTblAppendGrid"></table></td>
+        </tr>
+        <tr>
+            <td><table id="SwotStarkenTblAppendGrid"></table></td>
+            <td><table id="SwotGefahrenTblAppendGrid"></table></td>
+        </tr>
         </table>
+        
         <br />
         <button type="submit" id="SwotBtnSubmit">Speichern</button>
         <button id="SwotBtnPaste">Einfügen</button>
@@ -27,6 +38,7 @@
             <ul id="SwotUlError"></ul>
         </div>
     </form>
+    
 </div>
 
 

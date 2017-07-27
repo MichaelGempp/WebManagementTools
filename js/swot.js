@@ -7,9 +7,12 @@ $(document).ready(function(){
 
     //------------------------------INPUT----------------------------------------------------
 
+
+//------------------------------Chancen----------------------------------------------------
     $(function () {
         // Initialize appendGrid
-        $('#SwotTblAppendGrid').appendGrid({
+        $('#SwotChancenTblAppendGrid, #SwotRisikenTblAppendGrid').each(function (index, item) {
+           $(item).appendGrid({
             caption: 'Chancen',
             initRows: 1,
             columns: [
@@ -18,58 +21,22 @@ $(document).ready(function(){
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'parteien' },
 
-                {name: 'qualität', display: 'BEZIEHUNGS-QUALITÄT', type: 'select',
-                    ctrlOptions: '1:- ;2:+ ;3:++',
-                    onChange: handleChange
-                },
-                {name: 'tendenz', display: 'TENDENZ RELEVANZ', type: 'select',
-                    ctrlOptions: '1:- ;2:+ ;3:++',
-                    onChange: handleChange
-                },
-                { name: 'erwartungen', display: 'ERWARTUNGEN',
-                    onChange: function (evt, rowIndex) {
+                { name: 'einfluss', display: 'Einfluss auf die Ergebnisse', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
 
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'erwartungen' },
+                { name: 'umsetz', display: 'Umsetz-barkeit', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
 
-                { name: 'kommunikation', display: 'KOMMUNIKATION',
-                    onChange: function (evt, rowIndex) {
-
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'kommunikation' },
-
-                { name: 'EINFLUSS', display: 'KONFORMITÄTS-ANFORDERUNGEN',
-                    onChange: function (evt, rowIndex) {
-
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '200'}, ctrlClass: 'einfluss' },
-
-
-                { name: 'potential', display: 'POTENZIAL', type: 'select',
-                    ctrlOptions: '0: < choose >;1: gering;2:mittel ;3:hoch ;4:substanziell',
-                    onChange: handleChange
-                },
-                { name: 'zeitachse', display: 'ZEITACHSE', type: 'select',
-                    ctrlOptions: '0: < choose >;1: kurzfristig 6-12 Monate;2:mittelfristig 1-2 Jahre;3:langfristig > 2 Jahre;4:sehr langfristig > 5 Jahre',
-                    onChange: handleChange
-                },
-                { name: 'chancen', display: 'CHANCEN',
-                    onChange: function (evt, rowIndex) {
-
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'chancen' },
-
-                { name: 'risiken', display: 'RISIKEN',
-                    onChange: function (evt, rowIndex) {
-
-                    }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'risiken' },
+                { name: 'ranking', display: 'Ranking', type: 'ui-spinner', ctrlAttr: { maxlength: 2 }, ctrlCss: { width: '40px' }, uiOption: { min: 0, max: 20} },
             ]
         });
-
+        });
 
         $(function() {
             // Appending 2 empty rows.
             var val = 0;
-            $('#SwotTblAppendGrid').appendGrid('appendRow', 5);
+            $('#SwotChancenTblAppendGrid').appendGrid('appendRow', 5);
             for (var i = 1; i<6;i++){
                 val = i+1;
-                $('#SwotTblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
+                $('#SwotChancenTblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
             }
             // Appending 3 rows with data.
             /*     $('#tblAppendGrid').appendGrid('appendRow', [
@@ -78,16 +45,19 @@ $(document).ready(function(){
         });
 
 
+
+
+
         $("#SwotBtnPaste").click(function () {
 
 
-            var rowcount = $('#SwotTblAppendGrid').appendGrid('getRowCount');
+            var rowcount = $('#SwotChancenTblAppendGrid').appendGrid('getRowCount');
 
             for (var i = 0; i < rowcount; i++) {
                 var val = localStorage.getItem("Chancen"+i);
-                $('#SwotTblAppendGrid').appendGrid('setCtrlValue', 'chancen', i, val);
+                $('#SwotChancenTblAppendGrid').appendGrid('setCtrlValue', 'chancen', i, val);
                 var val = localStorage.getItem("Risiken"+i);
-                $('#SwotTblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
+                $('#SwotChancenTblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
             }
 
 
@@ -130,7 +100,7 @@ $(document).ready(function(){
 
                 for (var i = 0; i<rowcount ;i++){
 
-                    var data = $('#SwotTblAppendGrid').appendGrid('getRowValue', i);
+                    var data = $('#SwotChancenTblAppendGrid').appendGrid('getRowValue', i);
 
                     localStorage.setItem("Chancen"+i, data.chancen);
                     localStorage.setItem("Risiken"+i, data.risiken);
