@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="css/jquery.appendGrid-1.6.3.min.css"/>
+    <link rel="stylesheet" href="css/swot.css"/>
+
+
 </head>
 <body>
+
+<div id="SwotDivContainer">
+    <form id="SwotForm" action="" method="post">
+        <table id="SwotTblAppendGrid">
+        </table>
+        <br />
+        <button type="submit" id="SwotBtnSubmit">Speichern</button>
+        <button id="SwotBtnPaste">Einfügen</button>
+        <br />
+        <br />
+        <div>Error Placement:</div>
+        <div id="SwotDivErrorPlacement">
+            <ul id="SwotUlError"></ul>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.appendGrid-1.6.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/swot.js"></script>
+
 
 </body>
 </html>
