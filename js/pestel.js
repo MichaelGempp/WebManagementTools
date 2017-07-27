@@ -1,8 +1,8 @@
 
 $(document).ready(function(){
 
-    var chart = null;
-    var dataprovider;
+    var PestelChart = null;
+    var PestelDataprovider;
 
 
     var pointsPol = 8;
@@ -12,7 +12,7 @@ $(document).ready(function(){
     var pointsSoc = 6;
     var pointsEco = 4;
 
-    dataprovider = [ {
+    PestelDataprovider = [ {
         "category": "POLITISCH",
         "points": Number(pointsPol)
     }, {
@@ -33,10 +33,10 @@ $(document).ready(function(){
     } ];
 
 
-    chart = AmCharts.makeChart( "chartdiv", {
+    PestelChart = AmCharts.makeChart( "PestelDivChart", {
         "type": "radar",
         "theme": "light",
-        "dataProvider": dataprovider,
+        "dataProvider": PestelDataprovider,
         "valueAxes": [ {
             "axisTitleOffset": 20,
             "minimum": 0,
@@ -57,8 +57,8 @@ $(document).ready(function(){
     } );
 
 
-    chart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
-    chart.validateData();
+    PestelChart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
+    PestelChart.validateData();
 
 
 
@@ -68,52 +68,55 @@ $(document).ready(function(){
 
 
     function handleChange(evt, rowIndex) {
-        $('#btnSubmit').click();
+
     }
+
+
+
 
 
     //------------------------------INPUT----------------------------------------------------
 
     $(function () {
         // Initialize appendGrid
-        $('#tblAppendGrid').appendGrid({
+        $('#PestelTblAppendGrid').appendGrid({
             caption: 'Eingabe',
             initRows: 1,
             columns: [
-                {name: 'FAKTOREN', display: 'FAKTOREN', type: 'select',
+                {name: 'faktoren', display: 'FAKTOREN', type: 'select',
                     ctrlOptions: '1:POLITISCH ;2:WIRTSCHAFTLICH ;3:SOZIAL, ETHISCH, DEMOGRAPHISCH, GESELLSCHAFTLICH ;4:TECHNOLOGISCH ;5:UMWELTRELEVANT;6:RECHTLICH',
                     onChange: handleChange
                 },
-                { name: 'TREND', display: '(MEGA)-TREND',
+                { name: 'trend', display: '(MEGA)-TREND',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'trend' },
 
-                { name: 'THEMEN', display: 'THEMEN',
+                { name: 'themen', display: 'THEMEN',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'themen' },
 
-                { name: 'EINFLUSS', display: 'EINFLUSS AUF ERGEBNIS ODER WETTBEWERBSFÄHIGKEIT',
+                { name: 'einfluss', display: 'EINFLUSS AUF ERGEBNIS ODER WETTBEWERBSFÄHIGKEIT',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '416'}, ctrlClass: 'einfluss' },
 
 
-                { name: 'AUSWIRKUNG', display: 'AUSWIRKUNG', type: 'select',
+                { name: 'auswirkung', display: 'AUSWIRKUNG', type: 'select',
                     ctrlOptions: '0: < choose >;1: gering;2:mittel ;3:hoch ;4:substanziell',
                     onChange: handleChange
                 },
-                { name: 'ZEITACHSE', display: 'ZEITACHSE', type: 'select',
+                { name: 'zeitachse', display: 'ZEITACHSE', type: 'select',
                     ctrlOptions: '0: < choose >;1: kurzfristig 6-12 Monate;2:mittelfristig 1-2 Jahre;3:langfristig > 2 Jahre;4:sehr langfristig > 5 Jahre',
                     onChange: handleChange
                 },
-                { name: 'CHANCEN', display: 'CHANCEN',
+                { name: 'chancen', display: 'CHANCEN',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'chancen' },
 
-                { name: 'RISIKEN', display: 'RISIKEN',
+                { name: 'risiken', display: 'RISIKEN',
                     onChange: function (evt, rowIndex) {
 
                     }, type: 'text', ctrlAttr: { maxlength: 100 }, ctrlCss: { width: '160px'}, ctrlClass: 'risiken' },
@@ -123,12 +126,12 @@ $(document).ready(function(){
 
 
         $(function() {
-            // Appending 2 empty rows.
+            // Appending rows.
             var val = 0;
-           $('#tblAppendGrid').appendGrid('appendRow', 5);
+           $('#PestelTblAppendGrid').appendGrid('appendRow', 5);
             for (var i = 1; i<6;i++){
                 val = i+1;
-            $('#tblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
+            $('#PestelTblAppendGrid').appendGrid('setCtrlValue', 'faktoren', i, val);
             }
             // Appending 3 rows with data.
        /*     $('#tblAppendGrid').appendGrid('appendRow', [
@@ -139,7 +142,7 @@ $(document).ready(function(){
 
         //-----------------------SUBMIT AND Validation
 
-        $('#btnSubmit').button();
+        //$('#PestelBtnSubmit').button();
 
         $.validator.addClassRules('produkt', {
             required: true,
@@ -156,9 +159,16 @@ $(document).ready(function(){
         //     }, 'Please input valid year.');
         // Initialize validation plugin
 
+
+        $("#PestelBtnSubmit").click(function () {
+
+            $("#PestelForm").valid();
+
+        });
+
         //-----------------------SUBMIT AND Validation
-        $(document.forms[0]).validate({             // Eingabe keine Sonderzeichen !!!!
-            errorLabelContainer: '#ulError',
+        $("#PestelForm").validate({             // Eingabe keine Sonderzeichen !!!!
+            errorLabelContainer: '#PestelUlError',
             wrapper: 'li',
             submitHandler: function () {
 
@@ -171,38 +181,38 @@ $(document).ready(function(){
 
                 var selecter;
 
-                var rowcount =  $('#tblAppendGrid').appendGrid('getRowCount');
+                var rowcount =  $('#PestelTblAppendGrid').appendGrid('getRowCount');
 
                 for (var i = 0; i<rowcount ;i++){
 
-                var data = $('#tblAppendGrid').appendGrid('getRowValue', i);
+                var data = $('#PestelTblAppendGrid').appendGrid('getRowValue', i);
 
-                    localStorage.setItem("Chancen"+i, data.CHANCEN);
-                    localStorage.setItem("Risiken"+i, data.RISIKEN);
+                    localStorage.setItem("Chancen"+i, data.chancen);
+                    localStorage.setItem("Risiken"+i, data.risiken);
 
-                selecter = data.FAKTOREN;
+                selecter = data.faktoren;
 
                 if(selecter === "1"){
-                    pointsPol = pointsPol + Number(data.AUSWIRKUNG)
+                    pointsPol = pointsPol + Number(data.auswirkung)
                 }
                 else if (selecter === "2"){
-                    pointsLeg = pointsLeg + Number(data.AUSWIRKUNG)
+                    pointsLeg = pointsLeg + Number(data.auswirkung)
 
                 }
                 else if (selecter === "3"){
-                    pointsEnv = pointsEnv + Number(data.AUSWIRKUNG)
+                    pointsEnv = pointsEnv + Number(data.auswirkung)
 
                 }
                 else if (selecter === "4"){
-                    pointsTech = pointsTech + Number(data.AUSWIRKUNG)
+                    pointsTech = pointsTech + Number(data.auswirkung)
 
                 }
                 else if (selecter === "5"){
-                    pointsSoc = pointsSoc + Number(data.AUSWIRKUNG)
+                    pointsSoc = pointsSoc + Number(data.auswirkung)
 
                 }
                 else if (selecter === "6"){
-                    pointsEco = pointsEco + Number(data.AUSWIRKUNG)
+                    pointsEco = pointsEco + Number(data.auswirkung)
 
                 }
 
@@ -210,15 +220,32 @@ $(document).ready(function(){
 
 
 
-                chart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
-                chart.validateData();
+                PestelChart.dataProvider = createDataset(pointsPol,pointsLeg,pointsEnv,pointsTech,pointsSoc,pointsEco);
+                PestelChart.validateData();
 
 
 
-            } //-----------------Submitted
-        });
+            }
+        });//-----------------Submitted
+
+    }); //Init Input
+
+    $("#PestelBtnPaste").click(function () {
+
+
+        var rowcount = $('#PestelTblAppendGrid').appendGrid('getRowCount');
+
+        for (var i = 0; i < rowcount; i++) {
+            var val = localStorage.getItem("Chancen"+i);
+            $('#PestelTblAppendGrid').appendGrid('setCtrlValue', 'chancen', i, val);
+            var val = localStorage.getItem("Risiken"+i);
+            $('#PestelTblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
+        }
+
 
     });
+
+
 
 });
 

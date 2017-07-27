@@ -3,33 +3,77 @@
 <head>
     <meta charset="utf-8">
     <title>tabs demo</title>
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
+
+
+
+    <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="css/jquery.appendGrid-1.6.3.min.css"/>
+
     <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/pestel.css"/>
+    <link rel="stylesheet" href="css/parties.css"/>
+
 </head>
 <body>
 
 <div id="tabs">
     <ul>
-        <li><a href="#fragment-1">Analyse</a></li>
+        <li><a href="#tab-1">Analyse</a></li>
         <li><a href="#fragment-2">Szenarien</a></li>
         <li><a href="#fragment-3">Strategien Entwickeln</a></li>
         <li><a href="#fragment-4">Umsetzung & Controlling</a></li>
     </ul>
 
-    <div id="fragment-1">
+    <div id="tab-1">
         <ul>
-            <li><a href="#fragment-1a" id="pestel">PESTEL Analyse</a></li>
-            <li><a href="#fragment-1b"id="swot">SWOT Analyse</a></li>
-            <li><a href="#fragment-1c"id="parties">Intressierte Parteien</a></li>
+            <li> <a href="#PestelDivFrag" id="PestelLiTab">PESTEL Analyse</a> </li>
+            <li> <a href="#SwotDivFrag" id="SwotLiTab">SWOT Analyse</a> </li>
+            <li> <a href="#PartiesDivFrag" id="PartiesLiTab">Intressierte Parteien</a> </li>
         </ul>
 
-        <div id="fragment-1a">
+        <div id="PestelDivFrag">
+
+            <div id="PestelDivChart"></div>
+
+            <div id="PestelDivContainer">
+                <form id="PestelForm" action="" method="post">
+                    <table id="PestelTblAppendGrid">
+                    </table>
+                    <br />
+                    <button type="submit" id="PestelBtnSubmit">Speichern</button>
+                    <button id="PestelBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Error Placement:</div>
+                    <div id="PestelDivErrorPlacement">
+                        <ul id="PestelUlError"></ul>
+                    </div>
+                </form>
+            </div>
 
         </div>
-        <div id="fragment-1b">
+
+        <div id="SwotDivFrag">
 
         </div>
-        <div id="fragment-1c">
+        <div id="PartiesDivFrag">
+
+            <div id="PartiesDivContainer">
+                <form id="PartiesForm" action="" method="post">
+                    <table id="PartiesTblAppendGrid">
+                    </table>
+                    <br />
+                    <button type="submit" id="PartiesBtnSubmit">Speichern</button>
+                    <button id="PartiesBtnPaste">Einfügen</button>
+                    <br />
+                    <br />
+                    <div>Error Placement:</div>
+                    <div id="PartiesDivErrorPlacement">
+                        <ul id="PartiesUlError"></ul>
+                    </div>
+                </form>
+            </div>
 
         </div>
     </div>
@@ -47,10 +91,25 @@
 
 
 
+<!--<script type="text/javascript" src="js/pestel.js"></script>-->
+<!--<script type="text/javascript" src="js/parties.js"></script>-->
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/tab.js"></script>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.appendGrid-1.6.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+
+<script type="text/javascript" src="amcharts/amcharts.js"></script>
+<script type="text/javascript" src="amcharts/radar.js"></script>
+<script type="text/javascript" src="amcharts/plugins/export/export.min.js"></script>
+<script type="text/javascript" src="amcharts/themes/light.js"></script>
+
+<script type="text/javascript" src="js/tab.js"></script>
+<script type="text/javascript" src="js/pestel.js"></script>
+<script type="text/javascript" src="js/parties.js"></script>
+
 
 </body>
 </html>

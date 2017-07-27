@@ -2,15 +2,14 @@
 $(document).ready(function(){
 
     function handleChange(evt, rowIndex) {
-        $('#btnSubmit').click();
-    }
 
+    }
 
     //------------------------------INPUT----------------------------------------------------
 
     $(function () {
         // Initialize appendGrid
-        $('#tblAppendGrid').appendGrid({
+        $('#PartiesTblAppendGrid').appendGrid({
             caption: 'Eingabe',
             initRows: 1,
             columns: [
@@ -64,17 +63,13 @@ $(document).ready(function(){
         });
 
 
-
-
-
-
         $(function() {
             // Appending 2 empty rows.
             var val = 0;
-           $('#tblAppendGrid').appendGrid('appendRow', 5);
+           $('#PartiesTblAppendGrid').appendGrid('appendRow', 5);
             for (var i = 1; i<6;i++){
                 val = i+1;
-            $('#tblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
+            $('#PartiesTblAppendGrid').appendGrid('setCtrlValue', 'FAKTOREN', i, val);
             }
             // Appending 3 rows with data.
        /*     $('#tblAppendGrid').appendGrid('appendRow', [
@@ -83,19 +78,16 @@ $(document).ready(function(){
         });
 
 
+        $("#PartiesBtnPaste").click(function () {
 
 
-
-        $("#btnPaste").click(function () {
-
-
-            var rowcount = $('#tblAppendGrid').appendGrid('getRowCount');
+            var rowcount = $('#PartiesTblAppendGrid').appendGrid('getRowCount');
 
             for (var i = 0; i < rowcount; i++) {
                 var val = localStorage.getItem("Chancen"+i);
-                $('#tblAppendGrid').appendGrid('setCtrlValue', 'chancen', i, val);
+                $('#PartiesTblAppendGrid').appendGrid('setCtrlValue', 'chancen', i, val);
                 var val = localStorage.getItem("Risiken"+i);
-                $('#tblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
+                $('#PartiesTblAppendGrid').appendGrid('setCtrlValue', 'risiken', i, val);
             }
 
 
@@ -104,7 +96,6 @@ $(document).ready(function(){
 
         //-----------------------SUBMIT AND Validation
 
-        $('#btnSubmit').button();
 
         $.validator.addClassRules('produkt', {
             required: true,
@@ -122,16 +113,38 @@ $(document).ready(function(){
         // Initialize validation plugin
 
         //-----------------------SUBMIT AND Validation
-        $(document.forms[0]).validate({             // Eingabe keine Sonderzeichen !!!!
-            errorLabelContainer: '#ulError',
-            wrapper: 'li',
-            submitHandler: function () {
 
+        $("#PartiesBtnSubmit").click(function () {
 
+            $("#PartiesForm").valid();
 
-
-            } //-----------------Submitted
         });
+
+            $("#PartiesForm").validate({             // Eingabe keine Sonderzeichen !!!!
+                errorLabelContainer: '#PartiesUlError',
+                wrapper: 'li',
+                submitHandler: function () {
+
+
+                    var rowcount =  $('#PartiesTblAppendGrid').appendGrid('getRowCount');
+
+                    for (var i = 0; i<rowcount ;i++){
+
+                        var data = $('#PartiesTblAppendGrid').appendGrid('getRowValue', i);
+
+                        localStorage.setItem("Chancen"+i, data.chancen);
+                        localStorage.setItem("Risiken"+i, data.risiken);
+
+                    }
+
+
+
+                } //-----------------Submitted
+            });
+
+
+
+
 
     });
 
