@@ -84,7 +84,7 @@ $(document).ready(function(){
             initRows: 1,
             columns: [
                 {name: 'faktoren', display: 'FAKTOREN', type: 'select', ctrlClass: 'faktoren',
-                    ctrlOptions: '1:POLITISCH ;2:WIRTSCHAFTLICH ;3:SOZIAL, ETHISCH, DEMOGRAPHISCH, GESELLSCHAFTLICH ;4:TECHNOLOGISCH ;5:UMWELTRELEVANT;6:RECHTLICH',
+                    ctrlOptions: '1:POLITISCH ;2:WIRTSCHAFTLICH ;3:SOZ. ETH. DEM. GESELLSCH. ;4:TECHNOLOGISCH ;5:UMWELTRELEVANT;6:RECHTLICH',
                     onChange: handleChange
                 },
                 { name: 'trend', display: '(MEGA)-TREND',ctrlClass: 'trend',
@@ -162,9 +162,11 @@ $(document).ready(function(){
         });
 
         //-----------------------SUBMIT AND Validation
-        $("#PestelForm").validate({             // Eingabe keine Sonderzeichen !!!!
+        $("#PestelForm").validate({
+            lang: 'de',
             errorLabelContainer: '#PestelUlError',
             wrapper: 'li',
+
             submitHandler: function () {
 
                 pointsPol = 0;
