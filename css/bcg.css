@@ -1,6 +1,10 @@
 #BcgDivChart {
     width	: 40%;
     height	: 500px;
+    background: url(img/bcg.png);
+    background-size: 95% 95%;
+    background-position: right;
+    background-repeat: no-repeat;
 
 }
 #BcgDivContainer {

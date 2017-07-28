@@ -22,6 +22,7 @@ $(document).ready(function(){
                     ctrlOptions: '1:- ;2:+ ;3:++',
                     onChange: handleChange
                 },
+                
                 {name: 'tendenz', display: 'TENDENZ RELEVANZ', type: 'select',
                     ctrlOptions: '1:- ;2:+ ;3:++',
                     onChange: handleChange
