@@ -83,7 +83,7 @@ $(document).ready(function(){
             caption: 'Eingabe',
             initRows: 1,
             columns: [
-                {name: 'faktoren', display: 'FAKTOREN', type: 'select', ctrlClass: 'faktoren',
+                {name: 'faktoren', display: 'FAKTOREN', type: 'select', ctrlClass: 'faktoren',resizable: true,
                     ctrlOptions: '1:POLITISCH ;2:WIRTSCHAFTLICH ;3:SOZ. ETH. DEM. GESELLSCH. ;4:TECHNOLOGISCH ;5:UMWELTRELEVANT;6:RECHTLICH',
                     onChange: handleChange
                 },

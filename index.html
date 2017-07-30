@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>tabs demo</title>
 
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="amcharts/plugins/export/export.css" type="text/css" media="all" />
     <link rel="stylesheet" href="css/jquery-ui.min.css"/>
@@ -38,7 +38,7 @@
 
             <div id="PestelDivChart"></div>
 
-            <div id="PestelDivContainer">
+            <div style="overflow: auto;"id="PestelDivContainer">
                 <form id="PestelForm" action="" method="post">
                     <table id="PestelTblAppendGrid">
                     </table>
@@ -58,7 +58,7 @@
 
         <div id="SwotDivFrag">
 
-            <div id="SwotDivContainer">
+            <div style="overflow: auto;" id="SwotDivContainer">
 
                 <form id="SwotForm" action="" method="post">
 
@@ -90,7 +90,7 @@
 
         <div id="PartiesDivFrag">
 
-            <div id="PartiesDivContainer">
+            <div style="overflow: auto;"id="PartiesDivContainer">
                 <form id="PartiesForm" action="" method="post">
                     <table id="PartiesTblAppendGrid">
                     </table>
@@ -121,9 +121,11 @@
 
         <div id="BcgDivFrag">
 
-            <div id="BcgDivChart"></div>
+            <div class="chartwrapper">
+                 <div id="BcgDivChart"></div>
+            </div>
 
-            <div id="BcgDivContainer">
+            <div style="overflow: auto ;" id="BcgDivContainer">
                 <form id="BcgForm" action="" method="post">
                     <table id="BcgTblAppendGrid">
                     </table>

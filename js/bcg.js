@@ -67,9 +67,18 @@ $(document).ready(function(){
     var BcgChart = AmCharts.makeChart( "BcgDivChart", {
         "type": "xy",
         "theme": "light",
+   /*     "guides": [
+            {
+                "fillAlpha": 0.20,
+                "value": 0,
+                "toValue": 5,
+                label: "test",
+                "position": "right"
+            }],*/
         "balloon":{
             "fixedPosition":true
         },
+
         "dataProvider": dataProvider = [{
             "y": 0,
             "x": 0,
